@@ -1,0 +1,138 @@
+/* NOTICE - BUTTON STYLES DO NOT EFFECT ITS SIZE, ONLY ITS COLORING AND BORDERS AND HOVER PROPERTIES */
+
+.sandButton{
+    background-color:#FFF9C4; border-radius:2px; border:1px solid #A1887F;  color:#4E342E; cursor:pointer;   
+}
+.sandButton:hover {
+    background-color:#fff490;    
+}
+
+
+.sandButtonStatic {
+    background-color:#fff490;  border-radius:2px; border:1px solid #A1887F;  color:#4E342E;  
+}
+
+.sandTextInput{
+    background-color:white; border-radius:2px; border:1px solid #A1887F;  color:#4E342E;    
+}
+
+
+.sandButtonFaded{
+    background-color:rgba(255, 249, 196, 0.30); border-radius:2px; border:1px solid rgba(0, 0, 0, 0.2);  color:rgba(78, 52, 46, 0.30); cursor:pointer;   
+}
+.sandButtonFaded img {
+    opacity: 0.3;
+}
+.sandButtonFaded:hover{
+    background-color:#fff490; border-radius:2px; border:1px solid #A1887F;  color:#4E342E; 
+}
+.sandButtonFaded:hover img {
+    opacity: 1;
+}
+
+
+
+.navButton{
+    background-color:#ffffff; border-radius:2px; border:1px solid #A1887F;  color:#4E342E; cursor:pointer;   
+}
+.navButton:hover {
+    color:#0553e6; border:1px solid #2196F3;
+}
+
+
+.navButtonFaded{
+    background-color:rgba(255, 255, 255, 0.3); border-radius:2px; border:1px solid rgba(0, 0, 0, 0.2);  color:rgba(78, 52, 46, 0.30); cursor:pointer;   
+}
+.navButtonFaded img {
+    opacity: 0.3;
+}
+.navButtonFaded:hover{
+    color:#0553e6; border:1px solid #2196F3;
+    background-color:#ffffff; border-radius:2px; 
+}
+.navButtonFaded:hover img {
+    opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+.tileButtonTextNoHover {
+     color:#2196F3; cursor:pointer;   
+}
+.tileButtonText {
+     color:#2196F3; cursor:pointer;   
+}
+.tileButtonText:hover {
+    background-color:rgba(33, 150, 243, 0.12);
+}
+
+.tileButtonText_red {
+     color:#d30d0d; cursor:pointer;   
+}
+.tileButtonText_red:hover {
+    background-color:rgba(211, 13, 13, 0.12);
+}
+
+.tileButtonText_gray {
+     color:#9f9f9f; cursor:pointer;   
+}
+.tileButtonText_gray:hover {
+    background-color:rgba(159, 159, 159, 0.12);
+}
+
+.tileButtonText_disabled {
+     color:#a3a3a3; cursor:default;   
+}
+
+.titleButtonText_selected {
+    background-color:#E3F2FD;  color:#2196F3; cursor:default;
+}
+
+
+
+.cardButton {
+  background-color:white; border:1px solid #BBDEFB;  cursor:pointer;  
+}
+.cardButton:hover {
+    background-color:#E3F2FD;
+}
+
+
+
+
+
+
+
+
+
+
+.text_handler_BottomBorderDefault {
+     border:0px; border-bottom:1px solid #c3aea9; 
+}
+.text_handler_SupportTextColorDefault {
+    color:#7c7c7c;
+}
+
+.text_handler_BottomBorderValid {
+    border:0px;  border-bottom:1px solid #2196F3;
+}
+.text_handler_SupportTextColorValid {
+    color:#2196F3;
+}
+
+.text_handler_BottomBorderInvalid{
+    border:0px;  border-bottom:1px solid #ff2a2a;
+}
+.text_handler_SupportTextColorInvalid{
+    color:#ce0202;
+}
+
+.text_handler_MainTextColor {
+    color:black;   
+}

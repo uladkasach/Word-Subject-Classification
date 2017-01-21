@@ -1,0 +1,163 @@
+.unselectable{-webkit-user-select:none;-moz-user-select:none;user-select:none;}
+.selectable{ -webkit-user-select:text;-moz-user-select:text;user-select:text;}
+
+.disshow{ display:block;}
+.disnon {position:absolute; top:-9999999; left:-99999999;}
+.disnonRaw {display:none;}
+.dishid { visibility: hidden;}
+
+/* 
+Cross browser vertically and horizontally align text in a div (like a button)
+
+                <div class ='midText1' style = ''>
+                    <div class = 'midText2' 
+
+or like the content inside of a div 
+
+<div class = 'midText1'> <div class = 'midText2'>
+    -----content-----
+
+            </div>
+</div>
+    
+
+*/
+
+.midText1{display:table; height:100%; width:100%; margin:auto;}
+.midText2{  height:100%;
+     margin:auto; /*for chrome */
+    text-align:center; 
+    display: table-cell;
+    vertical-align: middle; 
+}
+
+
+/* Rows do not wrap in safari - this patches it */
+@media (min-width:400px){
+    .flexrowOnlyWhenBig{
+            display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+            display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+            display: -ms-flexbox;      /* TWEENER - IE 10 */
+            display: -webkit-flex;     /* NEW - Chrome */
+            display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+            -webkit-flex-flow: row wrap;
+            flex-flow: row wrap;
+    }
+}
+
+
+.flexme{
+        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+        display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+        display: -ms-flexbox;      /* TWEENER - IE 10 */
+        display: -webkit-flex;     /* NEW - Chrome */
+        display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    
+        }
+
+.flexrow { 
+        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+        display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works)  */
+        display: -ms-flexbox;      /* TWEENER - IE 10  */
+        display: -webkit-flex;     /* NEW - Chrome  */
+        display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+  */
+        -webkit-flex-flow: row wrap;
+        flex-flow: row wrap;
+        
+    }   
+/* Rows do not wrap in safari - this patches it */
+@media (min-width:400px){
+    .flexrowPATCH{
+            display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+            display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+            display: -ms-flexbox;      /* TWEENER - IE 10 */
+            display: -webkit-flex;     /* NEW - Chrome */
+            display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+            -webkit-flex-flow: row wrap;
+            flex-flow: row wrap;
+    }
+}
+
+
+
+.flexrownowrap { 
+        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+        display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+        display: -ms-flexbox;      /* TWEENER - IE 10 */
+        display: -webkit-flex;     /* NEW - Chrome */
+        display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+        -webkit-flex-flow: row nowrap;
+        flex-flow: column nowrap;
+    }    
+.flexcol { 
+        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+        display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+        display: -ms-flexbox;      /* TWEENER - IE 10 */
+        display: -webkit-flex;     /* NEW - Chrome */
+        display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+        -webkit-flex-flow: column wrap;
+        flex-flow: column wrap;
+    } 
+.flexcolnowrap { 
+        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+        display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+        display: -ms-flexbox;      /* TWEENER - IE 10 */
+        display: -webkit-flex;     /* NEW - Chrome */
+        display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+        -webkit-flex-flow: column nowrap;
+        flex-flow: column nowrap;
+    }      
+
+.flexwrap {
+    flex-wrap: wrap;   
+}
+    
+.flexi{
+          background: #887200; 
+          color: white;
+          border:1px solid;
+       }
+
+
+.flex1 {
+    -webkit-box-flex: 1;      /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 1;         /* OLD - Firefox 19- */
+    -webkit-flex: 1;          /* Chrome */
+    -ms-flex: 1;              /* IE 10 */
+    flex: 1;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+.flex2 {
+    -webkit-box-flex: 2;      /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 2;         /* OLD - Firefox 19- */
+    -webkit-flex: 2;          /* Chrome */
+    -ms-flex: 2;              /* IE 10 */
+    flex: 2;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+.flex3 {
+    -webkit-box-flex: 3;      /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 3;         /* OLD - Firefox 19- */
+    -webkit-flex: 3;          /* Chrome */
+    -ms-flex: 3;              /* IE 10 */
+    flex: 3;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+.flex4 {
+    -webkit-box-flex: 4;      /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 4;         /* OLD - Firefox 19- */
+    -webkit-flex: 4;          /* Chrome */
+    -ms-flex: 4;              /* IE 10 */
+    flex: 4;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+.flex5 {
+    -webkit-box-flex: 5;      /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 5;         /* OLD - Firefox 19- */
+    -webkit-flex: 5;          /* Chrome */
+    -ms-flex: 5;              /* IE 10 */
+    flex: 5;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+.flex6 {
+    -webkit-box-flex: 6;      /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 6;         /* OLD - Firefox 19- */
+    -webkit-flex: 6;          /* Chrome */
+    -ms-flex: 6;              /* IE 10 */
+    flex: 6;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}

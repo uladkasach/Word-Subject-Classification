@@ -1,0 +1,1 @@
+<script src = '/0_Global/inputs/button_handler/handler.js'></script>

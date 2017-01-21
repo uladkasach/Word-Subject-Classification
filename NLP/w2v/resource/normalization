@@ -1,0 +1,53 @@
+(defn normalize-proper-name
+  [name]
+  (-> name
+      (string/replace #" " "_")      
+      (string/lower-case)))
+
+(defn pre-process-line
+  [line]  
+  (-> (let [line (-> line
+                     ;; 1. remove all underscores
+                     (string/replace "_" " "))]
+        ;; 2. detect named entities and change them with their underscore form, like: Fred Giasson -> fred_giasson
+        (loop [entities (into [] (re-seq #"[\p{Lu}]([\p{Ll}]+|\.)(?:\s+[\p{Lu}]([\p{Ll}]+|\.))*(?:\s+[\p{Ll}][\p{Ll}\-]{1,3}){0,1}\s+[\p{Lu}]([\p{Ll}]+|\.)" line))
+               line line]
+          (if (empty? entities)
+            line
+            (let [entity (first (first entities))]
+              (recur (rest entities)                     
+                     (string/replace line entity (normalize-proper-name entity)))))))
+      (string/replace (re-pattern stop-list) " ")
+      ;; 4. remove everything between brackets like: [1] [edit] [show]
+      (string/replace #"\[.*\]" " ")
+      ;; 5. punctuation characters except the dot and the single quote, replace by nothing: (),[]-={}/\~!?%$@&*+:;<>
+      (string/replace #"[\^\(\)\,\[\]\=\{\}\/\\\~\!\?\%\$\@\&\*\+:\;\<\>\"\p{Pd}]" " ")
+      ;; 6. remove all numbers
+      (string/replace #"[0-9]" " ")
+      ;; 7. remove all words with 2 characters or less
+      (string/replace #"\b[\p{L}]{0,2}\b" " ")
+      ;; 10. normalize spaces
+      (string/replace #"\s{2,}" " ")
+      ;; 11. normalize dots with spaces
+      (string/replace #"\s\." ".")
+      ;; 12. normalize dots
+      (string/replace #"\.{1,}" ".")
+      ;; 13. normalize underscores
+      (string/replace #"\_{1,}" "_")
+      ;; 14. remove standalone single quotes
+      (string/replace " ' " " ")
+      ;; 15. re-normalize spaces
+      (string/replace #"\s{2,}" " ")        
+      ;; 16. put everything lowercase
+      (string/lower-case)
+
+      (str "\n")))
+
+(defn pre-process-corpus
+  [in-file out-file]
+  (spit out-file "" :append true)
+  (with-open [file (clojure.java.io/reader in-file)]
+    (doseq [line (line-seq file)]
+      (spit out-file (pre-process-line line) :append true))))
+
+(pre-process-corpus "resources/musicians-corpus.txt" "resources/musicians-corpus.clean.txt")

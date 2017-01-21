@@ -1,0 +1,9 @@
+GOAL: Determine if an unknown word is a class of the subject (e.g., context clues)
+
+TRAIN W2V MODEL
+    Take HTML document and into array ("list") of words
+    - get content from html (no scripts, no one word headers, etc)
+    - normalize content (remove stop words, lower case, numbers, named entities(?), etc - see state of art)
+        - remove numbers (?) -vs- replace with NUM (-------------------- optimization)
+    - turn content into list(s)
+        - possibly break content up into sections - if sections have different meaning? (-vs- window width) --------------------------- optimization

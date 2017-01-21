@@ -1,0 +1,15 @@
+Distinguish W2vec learned for domain specific corpus vs general corpus ------------------------------------ (optimization)
+- Must be able to label domain specific vs not in domain documents.
+- Parser/Learner must understand that it can only process certain data if can only process certain data
+--- e.g., learner can only learn based on documents from domain
+
+Distinguish between documents in word2vec model ---------------------------------------------------- (optimization, smaller than in document distinguishing because rarer)
+- hint, batch selection - skip gram does not consider both sides to first and last word (does it even consider one side to first and last word?)
+
+
+
+
+(P) - How does w2vec handle UNK ? does it process UNK as a word in the word embeddings or does it simply skip its occurence, act like nothing is there, or does it consider its placeholder for window width bugt not measure or record the affect of seeing UNK around a word? or does it not put it into the word embeddings but still measure that it was found near an UNK
+
+
+(p) - keep stopwords for window width purposes but do not build word vectors for them
