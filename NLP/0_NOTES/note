@@ -13,3 +13,8 @@ Distinguish between documents in word2vec model --------------------------------
 
 
 (p) - keep stopwords for window width purposes but do not build word vectors for them
+
+
+
+
+When words repeat : e.g., [jwh] * 44 => model assignes jwh similarity high to all words 

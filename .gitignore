@@ -1,0 +1,4 @@
+*.csv
+*.txt
+
+./NLP/w2v/embed_analysis/GoogleNews-vectors-negative300.txt
