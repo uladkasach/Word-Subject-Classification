@@ -48,9 +48,12 @@ function DOMinnerHTML(DOMNode $element) {
 
 
 
-function parseThisURL($html){
+function parseThisURL($html, $stop_boolean){
     //var_dump($html);
     $stopWords = $GLOBALS["stopWords"];
+    if($dontUse_stopWords_boolean == true){
+        $stopWords = [];   
+    }
     
     /////////////////////////////
     // Get text from document (very naieve approach)
@@ -241,6 +244,8 @@ within	without	won't	wonder	would
 wouldn't	yes	yet	you	you'd
 you'll	you're	you've	your	yours
 yourself	yourselves	zero";
+
+$list .= "  jwh oso sih ";
 
 $list = normalizationPartOne($list);
 $stopWords = explode(" ", $list);

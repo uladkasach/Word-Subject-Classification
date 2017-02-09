@@ -5,17 +5,20 @@ var parseHandler = {
     },
     
     submitParsingOf : function(type){
-        if(type !== "basic"){
+        if(type !== "basic" && type !== "stop"){
             console.log("parsing of non known type was requested");
             return;
         }
-        amount = this.DOM.input.amount.value;
-        max_for_type = this.DOM.input.left[type].value;
-        console.log("max for basic : " + max_for_type);
+        amount = parseInt(this.DOM.input.amount.value);
+        max_for_type = parseInt(this.DOM.input.left[type].value);
+        console.log("max for " + type + " : " + max_for_type);
         if(!(amount > 0)){
             alert("amount requested not greater than 0");
             return;
         } else if(amount > max_for_type){
+            console.log(max_for_type);
+            console.log(amount);
+            console.log(amount > max_for_type);
             alert("amount greater than max for type");   
             return;
         }
@@ -46,26 +49,5 @@ var parseHandler = {
         xhr.send('type='+type+'&amt='+amount);
     },
     
-    returnValidationReport : function(){
-        var string = "";
-
-        var source_url = this.DOM.input.source_url.value;
-
-        if(source_url.replace(/ /g,'') == ""){
-            string += " - Source URL is empty\n";   
-        }
-        regEx = /^((?:(?:(?:https?|ftp):)?\/\/)?)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i;
-        result = regEx.test( source_url );
-        if(!result){
-            string += " - Source URL is not valid\n";   
-        }
-        
-        if(string !== ""){
-            string = "Please fix the following errors before submitting : \n" + string; 
-            return string  
-        } else {
-            return true;   
-        }
-    },
     
 }

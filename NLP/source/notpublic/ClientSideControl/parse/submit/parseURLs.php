@@ -8,6 +8,7 @@ require_once($_SERVER["DOCUMENT_ROOT"] . "/../notpublic/config.php");
 function parseURLs($urls, $type){
     $type_list = [
         "basic" => NOTPUBLIC_ROOT . "/ClientSideControl/parse/submit/parse_types/basic/include.php",
+        "stop" => NOTPUBLIC_ROOT . "/ClientSideControl/parse/submit/parse_types/stop/include.php",
     ];
     if(!in_array($type, array_keys($type_list))){
         print "Parse type does not exist. Error.";
@@ -31,7 +32,9 @@ function parseURLs($urls, $type){
         $result = parseThisURL($thisHTML);
         $json = json_encode($result);
         var_dump($json);
+        var_dump(count($result));
         recordParseResult($thisURL, $type, $json);
+        var_dump($thisURL);
     }
     
 }

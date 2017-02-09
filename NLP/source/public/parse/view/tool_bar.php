@@ -67,7 +67,60 @@
                         </script>
                     </div>
                 </div>
+                
                 <div style = 'height:25px;'></div>
+                
+                
+                <div class = 'flexme' style = 'width:100%;'>
+                    <div class = 'flex1 flexme' style = ''>
+                        <div style = 'margin:auto; margin-left:0px;'>
+                            <?php
+                                $data = [
+                                    "id" => "parse-stop",
+                                    "text" => "Stop Parse",
+                                    "onclick" => "parseHandler.submitParsingOf(\"stop\");",
+                                    ];
+                                print returnTileButton($data);
+                            ?>
+                        </div>
+                    </div>
+                    <div style = 'width:10px;'></div>
+                    <div class = 'flex1'>
+                        <?php
+                            $details = array(
+                                "id" => "remaining_unparsed-stop",
+                                "label" => "Remaining",
+                                "subLabel" => "",
+                                "prefix" => "",
+                                "placeholder" => "",
+                                "required" => true,
+                            );
+                            print returnTextInput($details, true);
+                        ?>
+                        <script>
+                            window["textHandlers"]["remaining_unparsed-stop"].DOM.inputElement.disabled = 'true';
+                            window["textHandlers"]["remaining_unparsed-stop"].DOM.inputElement.value = <?php print $left_count["stop"]; ?>;
+                            window["textHandlers"]["remaining_unparsed-stop"].determineStatusOnBlur();
+                        </script>
+                    </div>
+                    <div style = 'width:10px;'></div>
+                    <div class = 'flex1' style = 'visibility:hidden;'>
+                        <?php
+                            $details = array(
+                                "id" => "desired_parsed",
+                                "label" => "Desired Amt to be Parsed",
+                                "subLabel" => "",
+                                "prefix" => "",
+                                "placeholder" => "",
+                                "required" => true,
+                            );
+                            print returnTextInput($details, true);
+                        ?>
+                        <script>
+                            window["textHandlers"]["desired_parsed"].enforce.digits_only = true;
+                        </script>
+                    </div>
+                </div>
                 <div style = 'height:25px;'></div>
                 <div style = 'height:5px;'></div>
             </div>

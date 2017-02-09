@@ -12,11 +12,13 @@ function gen_body($type, $quantity){
     // Quantity is based on word count. 
     // Grab a document, add to array, count words, repeat untill word count is met.
     
+    #print('ello!');
+    
     $words = [];
     $doc_index = $infi_loop_prevention_index = 0;
     $lastDataID = -3;
     $doneFull = true;
-    while(count($words) < $quantity && $infi_loop_prevention_index < 2500){
+    while((count($words) < $quantity || $quantity == 0) && $infi_loop_prevention_index < 2500){
         
         //print "<Br> --- ---<Br> ";
         
@@ -52,6 +54,23 @@ function gen_body($type, $quantity){
         //var_dump(count($words));
         //print "<Br> --- ---<Br> ";
         
+        if(false){
+            print("at count " . count($words));
+            print("<br>");
+            print("just added " . count($theseWords));
+            print("<Br>");
+            print($infi_loop_prevention_index);
+            print("<br>");
+
+            var_dump($quantity);
+            print("<br>");
+            var_dump(count($words));
+            print("<br>");
+            var_dump(count($words) < $quantity);
+            print("<br>");
+            print("<br>");
+        }
+        
         $doc_index++;
         $infi_loop_prevention_index++; //redundant, but more readable
     }
@@ -61,8 +80,10 @@ function gen_body($type, $quantity){
     }
     //var_dump($words);
 
+    $word_count = count($words);
     $words = json_encode($words);
     $words = substr($words, 1); // remove first character ( the "["] ) for csv formatting
     $words = substr($words, 0, -1); // remove last charater ( the "]" ) for csv formatting
-    return [$doneFull, $words];
+    
+    return [$doneFull, $words, $word_count];
 }

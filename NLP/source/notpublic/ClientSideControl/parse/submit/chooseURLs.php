@@ -9,7 +9,13 @@ function chooseURLs($type, $amount){
     //$query = "SELECT Source_HTML.URL, Parsed_Data.URL, Source_HTML.SourceID, Parsed_Data.ParseType FROM Source_HTML LEFT OUTER JOIN Parsed_Data ON Source_HTML.URL = Parsed_Data.URL WHERE Parsed_Data.ParseType != 'basic' OR (Source_HTML.URL IS NOT NULL AND Parsed_Data.URL IS NULL)";  // "anti-join"
     
     $mysqli = $GLOBALS["MYSQLI_MANAGER"]->returnMysqliObjectFor("NLP_main");
-    $stmt = $mysqli->prepare("SELECT Source_HTML.SourceID, Source_HTML.URL FROM Source_HTML LEFT OUTER JOIN Parsed_Data ON Source_HTML.URL = Parsed_Data.URL WHERE Parsed_Data.ParseType != ? OR (Source_HTML.URL IS NOT NULL AND Parsed_Data.URL IS NULL) ORDER BY Source_HTML.DateTimeRecorded ASC LIMIT ?");
+    $stmt = $mysqli->prepare("SELECT Source_HTML.SourceID, Source_HTML.URL FROM Source_HTML WHERE Source_HTML.URL NOT IN (SELECT Parsed_Data.URL FROM Parsed_Data WHERE Parsed_Data.ParseType = ?) ORDER BY Source_HTML.DateTimeRecorded ASC LIMIT ?");
+    /*
+    SELECT Source_HTML.SourceID, Source_HTML.URL, Parsed_Data.URL, Parsed_Data.ParseType FROM Source_HTML LEFT OUTER JOIN Parsed_Data ON Source_HTML.URL = Parsed_Data.URL WHERE (Parsed_Data.ParseType = "stop") OR (Source_HTML.URL IS NOT NULL AND Parsed_Data.URL IS NULL) ORDER BY Source_HTML.DateTimeRecorded ASC
+    
+    SELECT Source_HTML.SourceID, Source_HTML.URL FROM Source_HTML WHERE Source_HTML.URL NOT IN (SELECT Parsed_Data.URL FROM Parsed_Data WHERE Parsed_Data.ParseType = "stop")
+    
+    */
     print   $mysqli->error;
     $stmt->bind_param("si", $type, $amount);
     $stmt->execute();

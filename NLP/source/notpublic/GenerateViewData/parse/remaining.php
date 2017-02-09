@@ -49,6 +49,27 @@ $total_basic_parse_count = $numRows;
 $left_basic_parse = $total_source_count - $total_basic_parse_count;
 $left_count["basic"] = $left_basic_parse;
 
+
+/////////////////
+// Determine amount left for stop parsing
+/////////////////
+$parseType = 'stop';
+$mysqli = $GLOBALS["MYSQLI_MANAGER"]->returnMysqliObjectFor("NLP_main");
+$stmt = $mysqli->prepare("SELECT URL FROM Parsed_Data WHERE ParseType = ?");
+print   $mysqli->error;
+$stmt->bind_param("s", $parseType);
+$stmt->execute();
+$stmt->store_result();
+$numRows = $stmt->num_rows;
+//print "rows : " . $num_of_rows;
+$stmt->bind_result($url);  
+while($stmt->fetch()){};
+$stmt->free_result();
+$stmt->close();
+$total_basic_parse_count = $numRows;
+$left_basic_parse = $total_source_count - $total_basic_parse_count;
+$left_count["stop"] = $left_basic_parse;
+
 //var_dump($left_count);
 
 

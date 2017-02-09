@@ -16,17 +16,20 @@ $quantity = $word_quantity = urldecode($_GET["quantity"]);
 $type = urldecode($_GET["type"]);
 //////////////
 
-
+#print('starting!');
+ini_set('memory_limit', '2048M'); #2GiB
+ini_set('max_execution_time', 300); #5 min
 //////////////////////////////////////////
 // Interpret Input
 //////////////////////////////////////////
 if($type == "" || !isset($type)){
     $type = "basic";
-} else if($type !== "basic"){
+} else if($type !== "basic" && $type !== "stop"){
     print "Error.";
     die();
 }
-$intval = intval($quantity);
+//$quantity = preg_replace("/[^0-9.]/", '', strtolower($quantity));
+$intval = floatval($quantity);
 $modifier = preg_replace("/[^A-Za-z]/", '', strtolower($quantity)); // remove all nonalpha characters 
 if($modifier == "k" || $modifier == "kilo"){
     $quantity = $intval * 1000;   
@@ -34,8 +37,9 @@ if($modifier == "k" || $modifier == "kilo"){
     $quantity = $intval * 1000000;
 } else if ($modifier == "g" || $modifier == "giga" || $modifier == "billion"){
     $quantity = $intval * 1000000000;
+} else {
+    $quantity = $intval;   
 }
-
 
 
 //////////////////////////////////
@@ -47,12 +51,19 @@ $document_body = $data[1];
 if(!$data[0]){
     $word_quantity = "(-)" . $word_quantity; 
 }
+if($quantity == 0){
+    print("Word count = " . $data[2]);
+    die();
+}
+
+#print('here i am!');
+
 
 /////////////////////////////////
 // Begin document output
 /////////////////////////////////
 header("Content-type: text/plain");
-header("Content-Disposition: attachment; filename=plants_".$word_quantity."_export.csv");
+header("Content-Disposition: attachment; filename=plants_".$word_quantity."_".$type."_export.csv");
 
 print $document_body;
 
