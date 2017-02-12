@@ -22,14 +22,16 @@ for line in f.readlines():
         print(the_sum.shape);
     
     the_sum += this_vector;
+    #print(the_sum);
     
     if(i % 2000 == 0):
         print ("At word index", i);
         #display_current_order();
 f.close();
+i = i + 1; #length = index + 1;
 the_mean = the_sum / i;
 
-#print (the_mean);
+print ("Mean : ", the_mean, "\n");
 
 ##################################
 ## Write normalized vectors to file
@@ -44,7 +46,7 @@ for line in f.readlines():
     this_word = parts[0];
     this_vector = np.array([float(i) for i in parts[1:]])
 
-    normalized_vector = this_vector / the_mean;
+    normalized_vector = this_vector - the_mean;
     this_string = this_word;
     for this_value in normalized_vector:
         this_string += " " + str(this_value);

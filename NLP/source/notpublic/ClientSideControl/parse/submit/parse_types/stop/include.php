@@ -104,6 +104,7 @@ function parseThisURL($html){
     ////
     $old_content = $content;
     $content = [];
+    $lastWord == "";
     for($index = 0; $index < count($old_content); $index++){
         $thisWord = $old_content[$index];
         $fails_booleans = false;
@@ -113,6 +114,9 @@ function parseThisURL($html){
         $stripped = preg_replace("/[^A-Za-z]/", '', $thisWord);
         if($stripped == ""){
             $fails_booleans = true;   
+        }
+        if($thisWord = $lastWord){ /////////////// Eliminate Repetitions
+            $fails_booleans = true;
         }
         
 
