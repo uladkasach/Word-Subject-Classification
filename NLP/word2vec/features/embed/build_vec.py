@@ -264,7 +264,8 @@ with graph.as_default():
 #########################################
 num_steps = 100000 * 6 * + 1 # ---------------------------------------------------------------------- HP
 
-with tf.Session(graph=graph) as session:
+with tf.Session(graph=graph, config=tf.ConfigProto(
+    intra_op_parallelism_threads=6)) as session:
     # We must initialize all variables before we use them.
     init.run()
     print("Initialized")
