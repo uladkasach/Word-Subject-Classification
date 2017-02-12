@@ -26,7 +26,7 @@ import random
 import tensorflow as tf
 from pathlib import Path
 
-
+import time
 
 ######################################
 ## Read SysArgs
@@ -56,7 +56,7 @@ my_file = Path(embeddings_file_name_to_write_to);
 if my_file.is_file():
     print("A file name with the specified dynamic arguments you've specified (e.g., ", embeddings_file_name_to_write_to, ") already exists. Are you sure you want to overwrite it?");
     result = input("YES/no: ").lower();
-    if(result == "y" or result == "yes"):
+    if(result != "y" or result != "yes"):
         exit();
     
 
@@ -254,41 +254,45 @@ with graph.as_default():
 num_steps = 100000 * 6 * + 1 # ---------------------------------------------------------------------- HP
 
 with tf.Session(graph=graph) as session:
-  # We must initialize all variables before we use them.
-  init.run()
-  print("Initialized")
+    # We must initialize all variables before we use them.
+    init.run()
+    print("Initialized")
 
-  average_loss = 0
-  for step in xrange(num_steps):
-    batch_inputs, batch_labels = generate_batch(
-        batch_size, num_skips, skip_window)
-    feed_dict = {train_inputs: batch_inputs, train_labels: batch_labels}
+    last_time = time.time()
+    average_loss = 0
+    for step in xrange(num_steps):
+        batch_inputs, batch_labels = generate_batch(
+            batch_size, num_skips, skip_window)
+        feed_dict = {train_inputs: batch_inputs, train_labels: batch_labels}
 
-    # We perform one update step by evaluating the optimizer op (including it
-    # in the list of returned values for session.run()
-    _, loss_val = session.run([optimizer, loss], feed_dict=feed_dict)
-    average_loss += loss_val
+        # We perform one update step by evaluating the optimizer op (including it
+        # in the list of returned values for session.run()
+        _, loss_val = session.run([optimizer, loss], feed_dict=feed_dict)
+        average_loss += loss_val
 
-    if step % 2000 == 0:
-      if step > 0:
-        average_loss /= 2000
-      # The average loss is an estimate of the loss over the last 2000 batches.
-      print("Average loss at step ", step, ": ", average_loss)
-      average_loss = 0
+        if step % 2000 == 0:
+            if step > 0:
+                average_loss /= 2000;
+            now_time = time.time();
+            time_difference = int(now_time - last_time);
+            last_time = now_time;
+            # The average loss is an estimate of the loss over the last 2000 batches.
+            print("Average loss at step ", step, ": ", average_loss, ", time taken : ", time_difference)
+            average_loss = 0
 
-    # Note that this is expensive (~20% slowdown if computed every 500 steps)
-    if step % 10000 == 0:
-      sim = similarity.eval()
-      for i in xrange(valid_size):
-        valid_word = reverse_dictionary[valid_examples[i]]
-        top_k = 8  # number of nearest neighbors
-        nearest = (-sim[i, :]).argsort()[1:top_k + 1]
-        log_str = "Nearest to %s:" % valid_word
-        for k in xrange(top_k):
-          close_word = reverse_dictionary[nearest[k]]
-          log_str = "%s %s," % (log_str, close_word)
-        print(log_str)
-  final_embeddings = normalized_embeddings.eval()
+        # Note that this is expensive (~20% slowdown if computed every 500 steps)
+        if step % 10000 == 0:
+            sim = similarity.eval()
+            for i in xrange(valid_size):
+                valid_word = reverse_dictionary[valid_examples[i]]
+                top_k = 8  # number of nearest neighbors
+                nearest = (-sim[i, :]).argsort()[1:top_k + 1]
+                log_str = "Nearest to %s:" % valid_word
+                for k in xrange(top_k):
+                    close_word = reverse_dictionary[nearest[k]]
+                    log_str = "%s %s," % (log_str, close_word)
+                print(log_str)
+    final_embeddings = normalized_embeddings.eval()
 
 
 ###############
