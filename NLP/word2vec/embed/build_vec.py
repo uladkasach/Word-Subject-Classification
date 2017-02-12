@@ -24,11 +24,41 @@ import collections # to get most common words
 import numpy as np
 import random
 import tensorflow as tf
+from pathlib import Path
 
 
 
+######################################
+## Read SysArgs
+######################################
+delta_mod = sys.argv[1]; #1.7m_basic
+
+if len(sys.argv) > 2:
+    delta_mod_save = int(sys.argv[2]);
+else:
+    delta_mod_save = "";
+
+    
+#####################################
+## Generate dynamic file names
+#####################################
+embeddings_file_name_to_write_to = 'results/embeddings_'+delta_mod+delta_mod_save'.csv';
+tsne_file_name_to_write_to = 'results/tsne_'+delta_mod+delta_mod_save+'.png'
+file_name_to_read_from = 'plants_'+delta_mod+'_export.csv';
 
 
+#######################################
+## Verify that user wants to overwrite files, if files with the mod names already exist
+#######################################
+my_file = Path("/path/to/file")
+if my_file.is_file(embeddings_file_name_to_write_to):
+    print("A file name with the specified dynamic arguments you've specified (e.g., ", embeddings_file_name_to_write_to, ") already exists. Are you sure you want to overwrite it?");
+    result = input("YES/no: ").lower();
+    if(result == "y" or result == "yes"):
+        exit();
+    
+
+    
 
 #########################################
 # Step 0: Define Hyperparameters
@@ -44,9 +74,7 @@ print("Starting\n");
 # Step 1: Load Words
 #########################################
 print("Loading words...");
-
-delta_mod = sys.argv[1]; #1.7m_basic
-file_name = 'plants_'+delta_mod+'_export.csv';
+file_name = file_name_to_read_from;
 print(" -- Source filename " + file_name);
 with open('inputs/'+file_name, 'r') as f:
   reader = csv.reader(f)
@@ -274,14 +302,14 @@ def return_vector_at_index(index):
         vector += " " + str(final_embeddings[index, i]);
     return vector;
 
-f = open('results/embeddings_'+delta_mod+'.csv', 'w+')
+f = open(embeddings_file_name_to_write_to, 'w+')
 for i in range(0, vocabulary_size):
     f.write(return_vector_at_index(i)+'\n');  # python will convert \n to os.linesep
 f.close()  # you can omit in most cases as the destructor will call it
 
 
 # Step 6: Visualize the embeddings.
-def plot_with_labels(low_dim_embs, labels, filename='results/tsne_'+delta_mod+'.png'):
+def plot_with_labels(low_dim_embs, labels, filename=tsne_file_name_to_write_to):
   assert low_dim_embs.shape[0] >= len(labels), "More labels than embeddings"
   plt.figure(figsize=(20, 20))  # in inches
   for i, label in enumerate(labels):
