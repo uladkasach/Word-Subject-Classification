@@ -104,7 +104,6 @@ function parseThisURL($html){
     ////
     $old_content = $content;
     $content = [];
-    $lastWord == "";
     for($index = 0; $index < count($old_content); $index++){
         $thisWord = $old_content[$index];
         $fails_booleans = false;
@@ -115,9 +114,11 @@ function parseThisURL($html){
         if($stripped == ""){
             $fails_booleans = true;   
         }
-        if($thisWord = $lastWord){ /////////////// Eliminate Repetitions
+        if($index !== 0 && $thisWord == $lastWord){ 
+            // Eliminate Repetitions - removes problems with web data where strings like, sih sih sih sih sih sih sih sih, make everything close to sih
             $fails_booleans = true;
         }
+        $lastWord = $thisWord;
         
 
         if(!$fails_booleans){

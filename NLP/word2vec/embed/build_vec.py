@@ -38,6 +38,13 @@ if len(sys.argv) > 2:
 else:
     delta_mod_save = "";
 
+########################################
+## offer help for -h
+#######################################
+if(delta_mod == "-h"):
+    print("example : python3 build_vec.py 5.4m_basic");
+    exit();
+    
     
 #####################################
 ## Generate dynamic file names

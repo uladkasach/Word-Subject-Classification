@@ -122,6 +122,14 @@ function parseThisURL($html, $stop_boolean){
         if(strlen($thisWord) < 2 || in_array($thisWord, $stopWords)){
             $fails_booleans = true;   
         }
+        
+        if($index !== 0 && $thisWord == $lastWord){ 
+            // Eliminate Repetitions - removes problems with web data where strings like, sih sih sih sih sih sih sih sih, make everything close to sih
+            $fails_booleans = true;
+        }
+        $lastWord = $thisWord;
+        
+        
         if(!$fails_booleans){
             $content[] = $thisWord;   
         }
