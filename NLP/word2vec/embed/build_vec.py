@@ -34,7 +34,7 @@ from pathlib import Path
 delta_mod = sys.argv[1]; #1.7m_basic
 
 if len(sys.argv) > 2:
-    delta_mod_save = int(sys.argv[2]);
+    delta_mod_save = str(sys.argv[2]);
 else:
     delta_mod_save = "";
 
@@ -42,16 +42,18 @@ else:
 #####################################
 ## Generate dynamic file names
 #####################################
-embeddings_file_name_to_write_to = 'results/embeddings_'+delta_mod+delta_mod_save'.csv';
-tsne_file_name_to_write_to = 'results/tsne_'+delta_mod+delta_mod_save+'.png'
+embeddings_file_name_to_write_to = 'results/embeddings_'+"_"+delta_mod+delta_mod_save+'.csv';
+tsne_file_name_to_write_to = 'results/tsne_'+delta_mod+"_"+delta_mod_save+'.png'
 file_name_to_read_from = 'plants_'+delta_mod+'_export.csv';
+
+print(embeddings_file_name_to_write_to);
 
 
 #######################################
 ## Verify that user wants to overwrite files, if files with the mod names already exist
 #######################################
-my_file = Path("/path/to/file")
-if my_file.is_file(embeddings_file_name_to_write_to):
+my_file = Path(embeddings_file_name_to_write_to);
+if my_file.is_file():
     print("A file name with the specified dynamic arguments you've specified (e.g., ", embeddings_file_name_to_write_to, ") already exists. Are you sure you want to overwrite it?");
     result = input("YES/no: ").lower();
     if(result == "y" or result == "yes"):
