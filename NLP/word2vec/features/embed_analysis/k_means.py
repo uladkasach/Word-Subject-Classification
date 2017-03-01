@@ -60,7 +60,7 @@ if __name__ == "__main__":
         #clusters_to_make = 100;
         
         df, labels_array  = build_word_vector_matrix(input_vector_file, n_words);
-        kmeans_model      = KMeans(init='k-means++', n_clusters=clusters_to_make, n_init=10, verbose=0);
+        kmeans_model      = KMeans(init='k-means++', n_clusters=clusters_to_make, n_init=10, n_jobs=16, verbose=0);
         kmeans_model.fit(df)
         
         cluster_labels    = kmeans_model.labels_

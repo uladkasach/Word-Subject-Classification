@@ -33,10 +33,20 @@ import time
 ######################################
 delta_mod = sys.argv[1]; #1.7m_basic
 
-if len(sys.argv) > 2:
-    delta_mod_save = "_"+str(sys.argv[2]);
-else:
-    delta_mod_save = "";
+index = -1;
+dynamic_inter_threads = 8;
+dynamic_intra_threads = 8;
+delta_mod_save = "";
+for input in sys.argv:
+    index = index+1;
+    if(index == 0):
+        continue;
+    if(input[0:7] == "-inter:"):
+        dynamic_inter_threads = int(input[7:]);
+    elif(input[0:7] == "-intra:"):
+        dynamic_intra_threads = int(input[7:]);
+    elif(input[0:5] == "-mod:"):
+        delta_mod_save = "_"+str(input[5:]);
 
 ########################################
 ## offer help for -h
@@ -265,7 +275,7 @@ with graph.as_default():
 num_steps = 100000 * 6 * + 1 # ---------------------------------------------------------------------- HP
 
 with tf.Session(graph=graph, config=tf.ConfigProto(
-    intra_op_parallelism_threads=6)) as session:
+    intra_op_parallelism_threads= dynamic_intra_threads, inter_op_parallelism_threads = dynamic_inter_threads)) as session:
     # We must initialize all variables before we use them.
     init.run()
     print("Initialized")
