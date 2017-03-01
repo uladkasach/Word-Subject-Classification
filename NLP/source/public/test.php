@@ -1,6 +1,6 @@
 <?php
 
-    $urlToScan = "http://www.gutenberg.org/cache/epub/34175/pg34175.txt";
+    $urlToScan = "http://www.homedepot.com/b/Outdoors-Garden-Center-Garden-Plants-Flowers/N-5yc1vZc8rg";
 
     if(!isset($userAgent)){
       $userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36";

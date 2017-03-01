@@ -28,8 +28,6 @@ function normalizationPartOne($content){
     $content = preg_replace('/[0-9]+/', '', $content); // remove all numbers
     $content = preg_replace('/\s+/', ' ', $content); // replace multiple white spaces with one white space
     $content = preg_replace("/[^A-Za-z ]/", '', $content); // remove all nonalpha characters 
-
-    
     
     return $content;
 }

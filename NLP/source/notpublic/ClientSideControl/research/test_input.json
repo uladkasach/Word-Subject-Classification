@@ -1,0 +1,366 @@
+
+    {
+     "kind": "customsearch#search",
+     "url": {
+      "type": "application/json",
+      "template": "https://www.googleapis.com/customsearch/v1?q={searchTerms}&num={count?}&start={startIndex?}&lr={language?}&safe={safe?}&cx={cx?}&cref={cref?}&sort={sort?}&filter={filter?}&gl={gl?}&cr={cr?}&googlehost={googleHost?}&c2coff={disableCnTwTranslation?}&hq={hq?}&hl={hl?}&siteSearch={siteSearch?}&siteSearchFilter={siteSearchFilter?}&exactTerms={exactTerms?}&excludeTerms={excludeTerms?}&linkSite={linkSite?}&orTerms={orTerms?}&relatedSite={relatedSite?}&dateRestrict={dateRestrict?}&lowRange={lowRange?}&highRange={highRange?}&searchType={searchType}&fileType={fileType?}&rights={rights?}&imgSize={imgSize?}&imgType={imgType?}&imgColorType={imgColorType?}&imgDominantColor={imgDominantColor?}&alt=json"
+     },
+     "queries": {
+      "request": [
+       {
+        "title": "Google Custom Search - plant",
+        "totalResults": "252000000",
+        "searchTerms": "plant",
+        "count": 10,
+        "startIndex": 1,
+        "inputEncoding": "utf8",
+        "outputEncoding": "utf8",
+        "safe": "off",
+        "cx": "008631247620893273507:vmru3a6gwmy"
+       }
+      ],
+      "nextPage": [
+       {
+        "title": "Google Custom Search - plant",
+        "totalResults": "252000000",
+        "searchTerms": "plant",
+        "count": 10,
+        "startIndex": 11,
+        "inputEncoding": "utf8",
+        "outputEncoding": "utf8",
+        "safe": "off",
+        "cx": "008631247620893273507:vmru3a6gwmy"
+       }
+      ]
+     },
+     "context": {
+      "title": "subject_research"
+     },
+     "searchInformation": {
+      "searchTime": 0.68304,
+      "formattedSearchTime": "0.68",
+      "totalResults": "252000000",
+      "formattedTotalResults": "252,000,000"
+     },
+     "items": [
+      {
+       "kind": "customsearch#result",
+       "title": "Plant - Wikipedia",
+       "htmlTitle": "\u003cb\u003ePlant\u003c/b\u003e - Wikipedia",
+       "link": "https://en.wikipedia.org/wiki/Plant",
+       "displayLink": "en.wikipedia.org",
+       "snippet": "Plants are mainly multicellular, predominantly photosynthetic eukaryotes of the \nkingdom Plantae. The term is today generally limited to the green plants, which ...",
+       "htmlSnippet": "\u003cb\u003ePlants\u003c/b\u003e are mainly multicellular, predominantly photosynthetic eukaryotes of the \u003cbr\u003e\nkingdom Plantae. The term is today generally limited to the green \u003cb\u003eplants\u003c/b\u003e, which&nbsp;...",
+       "cacheId": "taK1QiH0gCMJ",
+       "formattedUrl": "https://en.wikipedia.org/wiki/Plant",
+       "htmlFormattedUrl": "https://en.wikipedia.org/wiki/\u003cb\u003ePlant\u003c/b\u003e",
+       "pagemap": {
+        "cse_thumbnail": [
+         {
+          "width": "184",
+          "height": "274",
+          "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS9w-kQlZqx4r8ZoqzYT78y4sbEJYYLDGbW19BUSYeYozqLYpiJ8n3G9kjf"
+         }
+        ],
+        "metatags": [
+         {
+          "referrer": "origin-when-cross-origin",
+          "og:image": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Diversity_of_plants_image_version_5.png",
+          "twitter:card": "summary_large_image"
+         }
+        ],
+        "cse_image": [
+         {
+          "src": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Diversity_of_plants_image_version_5.png"
+         }
+        ]
+       }
+      },
+      {
+       "kind": "customsearch#result",
+       "title": "Plant | Asheville Vegan Restaurant | Chef Jason Sellers",
+       "htmlTitle": "\u003cb\u003ePlant\u003c/b\u003e | Asheville Vegan Restaurant | Chef Jason Sellers",
+       "link": "http://plantisfood.com/",
+       "displayLink": "plantisfood.com",
+       "snippet": "Plant, an Asheville vegan restaurant; cuisine by Chef Jason Sellers. Find out \nwhat all the rave reviews are about - try Asheville's only completely vegan menu.",
+       "htmlSnippet": "\u003cb\u003ePlant\u003c/b\u003e, an Asheville vegan restaurant; cuisine by Chef Jason Sellers. Find out \u003cbr\u003e\nwhat all the rave reviews are about - try Asheville&#39;s only completely vegan menu.",
+       "cacheId": "JNdtPv-0vVYJ",
+       "formattedUrl": "plantisfood.com/",
+       "htmlFormattedUrl": "\u003cb\u003eplant\u003c/b\u003eisfood.com/",
+       "pagemap": {
+        "cse_thumbnail": [
+         {
+          "width": "374",
+          "height": "135",
+          "src": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSY_Fj6ocpW7i1Xk6xyB722fJbDW0Ee-BGNU5WPZ-Ul0pI0o-6Mc-ce94w"
+         }
+        ],
+        "metatags": [
+         {
+          "author": "Sparking Design"
+         }
+        ],
+        "cse_image": [
+         {
+          "src": "http://plantisfood.com/wp-content/header-images/peppercorn-crusted-seitan_header.jpg"
+         }
+        ]
+       }
+      },
+      {
+       "kind": "customsearch#result",
+       "title": "Plant Chicago: Home",
+       "htmlTitle": "\u003cb\u003ePlant\u003c/b\u003e Chicago: Home",
+       "link": "http://plantchicago.org/",
+       "displayLink": "plantchicago.org",
+       "snippet": "Plant Chicago is a non-profit organization established in 2014 by Bubbly \nDynamics, LLC. Bubbly is also owner and operator of our home, The Plant, ...",
+       "htmlSnippet": "\u003cb\u003ePlant\u003c/b\u003e Chicago is a non-profit organization established in 2014 by Bubbly \u003cbr\u003e\nDynamics, LLC. Bubbly is also owner and operator of our home, The \u003cb\u003ePlant\u003c/b\u003e,&nbsp;...",
+       "cacheId": "C2_OdZ15VSQJ",
+       "formattedUrl": "plantchicago.org/",
+       "htmlFormattedUrl": "\u003cb\u003eplant\u003c/b\u003echicago.org/",
+       "pagemap": {
+        "cse_thumbnail": [
+         {
+          "width": "275",
+          "height": "183",
+          "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSRv0VETAdJmOPkNi-eLmtlAQnHw2QEv3iqaW0_ZPxiZISelZcJPOAkWgwr"
+         }
+        ],
+        "metatags": [
+         {
+          "viewport": "width=device-width, initial-scale=1",
+          "og:locale": "en_US",
+          "og:type": "website",
+          "og:title": "Home | Plant Chicago",
+          "og:description": "Plant Chicago is a non-profit organization established in 2014 by Bubbly Dynamics, LLC. Bubbly is also owner and operator of our home, The Plant, a groundbreaking food production space designed to be a net-zero, closed loop system in Chicago’s Back of the Yards",
+          "og:url": "http://plantchicago.org/",
+          "og:site_name": "Plant Chicago",
+          "og:image": "http://plantchicago.org/app/uploads/2015/11/Image-FPO-01-Greyscale.jpg",
+          "og:image:width": "1000",
+          "og:image:height": "665",
+          "twitter:card": "summary",
+          "twitter:description": "Plant Chicago is a non-profit organization established in 2014 by Bubbly Dynamics, LLC. Bubbly is also owner and operator of our home, The Plant, a groundbreaking food production space designed to be a net-zero, closed loop system in Chicago’s Back of the Yards",
+          "twitter:title": "Home | Plant Chicago",
+          "twitter:image": "http://plantchicago.org/app/uploads/2015/11/Image-FPO-01-Greyscale.jpg"
+         }
+        ],
+        "cse_image": [
+         {
+          "src": "http://plantchicago.org/app/uploads/2015/11/Image-FPO-01-Greyscale.jpg"
+         }
+        ]
+       }
+      },
+      {
+       "kind": "customsearch#result",
+       "title": "The Plant | Cafe Organic",
+       "htmlTitle": "The \u003cb\u003ePlant\u003c/b\u003e | Cafe Organic",
+       "link": "http://www.theplantcafe.com/",
+       "displayLink": "www.theplantcafe.com",
+       "snippet": "THE PLANT - Cafe Organic | All organic produce, free range organic poultry, \nsustainable seafood.",
+       "htmlSnippet": "THE \u003cb\u003ePLANT\u003c/b\u003e - Cafe Organic | All organic produce, free range organic poultry, \u003cbr\u003e\nsustainable seafood.",
+       "cacheId": "HrRfk3z9d7wJ",
+       "formattedUrl": "www.theplantcafe.com/",
+       "htmlFormattedUrl": "www.the\u003cb\u003eplant\u003c/b\u003ecafe.com/",
+       "pagemap": {
+        "cse_thumbnail": [
+         {
+          "width": "292",
+          "height": "173",
+          "src": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT-tXm4sUITkkTAr8h0TwSaRnFdPcoIjMnAzvKxewmpPAVToo6W1ox2ouSF"
+         }
+        ],
+        "metatags": [
+         {
+          "viewport": "width=device-width, initial-scale=1",
+          "mobileoptimized": "width",
+          "handheldfriendly": "true"
+         }
+        ],
+        "cse_image": [
+         {
+          "src": "http://www.theplantcafe.com/sites/theplant/files/styles/homepage_feature/public/images/locations/featured/5-HOMEPAGE-TART.jpg?itok=yxS72BC_"
+         }
+        ]
+       }
+      },
+      {
+       "kind": "customsearch#result",
+       "title": "Welcome to the PLANTS Database | USDA PLANTS",
+       "htmlTitle": "Welcome to the \u003cb\u003ePLANTS\u003c/b\u003e Database | USDA \u003cb\u003ePLANTS\u003c/b\u003e",
+       "link": "http://plants.usda.gov/",
+       "displayLink": "plants.usda.gov",
+       "snippet": "The home page for the United States Department of Agriculture PLANTS \nDatabase.",
+       "htmlSnippet": "The home page for the United States Department of Agriculture \u003cb\u003ePLANTS\u003c/b\u003e \u003cbr\u003e\nDatabase.",
+       "cacheId": "f1Kx9_TEbWMJ",
+       "formattedUrl": "plants.usda.gov/",
+       "htmlFormattedUrl": "\u003cb\u003eplants\u003c/b\u003e.usda.gov/",
+       "pagemap": {
+        "cse_thumbnail": [
+         {
+          "width": "76",
+          "height": "66",
+          "src": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTi8vnrFNnfzZe6zHAtVbrbxD90jS5pHoEMl4NOSgUONnJ0VXsJ0sHi"
+         }
+        ],
+        "metatags": [
+         {
+          "language": "English",
+          "creator": "PLANTS Web Development Team",
+          "affiliated-agency": "USDA National Plant Data Center",
+          "title": "Welcome to the PLANTS Database | USDA PLANTS",
+          "link title": "Home"
+         }
+        ],
+        "cse_image": [
+         {
+          "src": "https://plants.usda.gov/spotlight/asclepias_tuberosa.jpg"
+         }
+        ]
+       }
+      },
+      {
+       "kind": "customsearch#result",
+       "title": "PLANT Apothecary – Design-Driven Apothecary with a Conscience.",
+       "htmlTitle": "\u003cb\u003ePLANT\u003c/b\u003e Apothecary – Design-Driven Apothecary with a Conscience.",
+       "link": "https://plantapothecary.com/",
+       "displayLink": "plantapothecary.com",
+       "snippet": "Å Face Oil for Dry Skin. $40.00 $24.00. Add to cart · plant-apothecary-be-\ngentle_front-bar-soap ... $20.00. Add to cart · plant-apothecary-calm-down-bar-\nsoap ...",
+       "htmlSnippet": "Å Face Oil for Dry Skin. $40.00 $24.00. Add to cart &middot; \u003cb\u003eplant\u003c/b\u003e-apothecary-be-\u003cbr\u003e\ngentle_front-bar-soap ... $20.00. Add to cart &middot; \u003cb\u003eplant\u003c/b\u003e-apothecary-calm-down-bar-\u003cbr\u003e\nsoap&nbsp;...",
+       "cacheId": "XxvIVEs4qf8J",
+       "formattedUrl": "https://plantapothecary.com/",
+       "htmlFormattedUrl": "https://\u003cb\u003eplant\u003c/b\u003eapothecary.com/",
+       "pagemap": {
+        "cse_thumbnail": [
+         {
+          "width": "201",
+          "height": "250",
+          "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS6K5OLwLJ3CHykJ-0kdFRweuvgFOqmTiCtv_TMyMSc5I3Y8-HKbChb7ejY"
+         }
+        ],
+        "metatags": [
+         {
+          "viewport": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+          "referrer": "always"
+         }
+        ],
+        "cse_image": [
+         {
+          "src": "https://plantapothecary.com/wp-content/uploads/2016/10/PLANT-Apothecary-BE-GENTLE_FRONT-bar-soap-350x435.jpg"
+         }
+        ]
+       }
+      },
+      {
+       "kind": "customsearch#result",
+       "title": "The Plant Cell",
+       "htmlTitle": "The \u003cb\u003ePlant\u003c/b\u003e Cell",
+       "link": "http://www.plantcell.org/",
+       "displayLink": "www.plantcell.org",
+       "snippet": "The Plant Cell publishes novel research of special significance in plant biology, \nespecially in the areas of cellular biology, molecular biology, biochemistry, ...",
+       "htmlSnippet": "The \u003cb\u003ePlant\u003c/b\u003e Cell publishes novel research of special significance in \u003cb\u003eplant\u003c/b\u003e biology, \u003cbr\u003e\nespecially in the areas of cellular biology, molecular biology, biochemistry,&nbsp;...",
+       "formattedUrl": "www.plantcell.org/",
+       "htmlFormattedUrl": "www.\u003cb\u003eplant\u003c/b\u003ecell.org/",
+       "pagemap": {
+        "cse_thumbnail": [
+         {
+          "width": "196",
+          "height": "257",
+          "src": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSO7iotjxXTRJlropDW3S2hHZZR51_qKZMbblVEw0Jw9KLnaV5AwCdhiCw"
+         }
+        ],
+        "metatags": [
+         {
+          "hw.ad-path": "/"
+         }
+        ],
+        "cse_image": [
+         {
+          "src": "http://www.plantcell.org/site/pap_covers/September2016.jpg"
+         }
+        ]
+       }
+      },
+      {
+       "kind": "customsearch#result",
+       "title": "Plant Physiology",
+       "htmlTitle": "\u003cb\u003ePlant\u003c/b\u003e Physiology",
+       "link": "http://www.plantphysiol.org/",
+       "displayLink": "www.plantphysiol.org",
+       "snippet": "Plant Physiology ® is an international journal devoted to physiology, \nbiochemistry, cellular and molecular biology, genetics, biophysics, and \nenvironmental ...",
+       "htmlSnippet": "\u003cb\u003ePlant\u003c/b\u003e Physiology \u003csup\u003e®\u003c/sup\u003e is an international journal devoted to physiology, \u003cbr\u003e\nbiochemistry, cellular and molecular biology, genetics, biophysics, and \u003cbr\u003e\nenvironmental&nbsp;...",
+       "formattedUrl": "www.plantphysiol.org/",
+       "htmlFormattedUrl": "www.\u003cb\u003eplant\u003c/b\u003ephysiol.org/",
+       "pagemap": {
+        "cse_thumbnail": [
+         {
+          "width": "194",
+          "height": "260",
+          "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR3kw-pK-vNl7E1rKh_n-f37YB2JOAIVtN3CEHNuiQKSuCaOgvWloepwl2M"
+         }
+        ],
+        "metatags": [
+         {
+          "hw.ad-path": "/"
+         }
+        ],
+        "cse_image": [
+         {
+          "src": "http://www.plantphysiol.org/content/vol173/issue2/home_cover.gif"
+         }
+        ]
+       }
+      },
+      {
+       "kind": "customsearch#result",
+       "title": "Plants, Bulbs, Trees, Shrubs, Seeds & Perennials",
+       "htmlTitle": "\u003cb\u003ePlants\u003c/b\u003e, Bulbs, Trees, Shrubs, Seeds &amp; Perennials",
+       "link": "http://www.homedepot.com/b/Outdoors-Garden-Center-Garden-Plants-Flowers/N-5yc1vZc8rg",
+       "displayLink": "www.homedepot.com",
+       "snippet": "Find plants and trees, shrubs and perennials for a beautiful yard. Grow your \nfavorite flower seeds into healthy vegetable plants from the Garden Center.",
+       "htmlSnippet": "Find \u003cb\u003eplants\u003c/b\u003e and trees, shrubs and perennials for a beautiful yard. Grow your \u003cbr\u003e\nfavorite flower seeds into healthy vegetable \u003cb\u003eplants\u003c/b\u003e from the Garden Center.",
+       "cacheId": "ILjP2rJrd0MJ",
+       "formattedUrl": "www.homedepot.com/b/Outdoors-Garden...Plants.../N-5yc1vZc8rg",
+       "htmlFormattedUrl": "www.homedepot.com/b/Outdoors-Garden...\u003cb\u003ePlants\u003c/b\u003e.../N-5yc1vZc8rg",
+       "pagemap": {
+        "cse_thumbnail": [
+         {
+          "width": "179",
+          "height": "108",
+          "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTQBucH9dIgYe9Jz9RLq9TI5xs_vInpCpp2ZZJ4O_3c4cNxCYb2TwzrLp4"
+         }
+        ],
+        "cse_image": [
+         {
+          "src": "http://www.homedepot.com/hdus/en_US/DTCCOMNEW/fetch/Category_Pages/Outdoor/Garden_Center/Garden_Plants_and_Flowers/shrubs-visnav.jpg"
+         }
+        ]
+       }
+      },
+      {
+       "kind": "customsearch#result",
+       "title": "Plant Science - ScienceDirect.com",
+       "htmlTitle": "\u003cb\u003ePlant\u003c/b\u003e Science - ScienceDirect.com",
+       "link": "http://www.sciencedirect.com/science/journal/01689452",
+       "displayLink": "www.sciencedirect.com",
+       "snippet": "The online version of Plant Science at ScienceDirect.com, the world's leading \nplatform for high quality peer-reviewed full-text journals.",
+       "htmlSnippet": "The online version of \u003cb\u003ePlant\u003c/b\u003e Science at ScienceDirect.com, the world&#39;s leading \u003cbr\u003e\nplatform for high quality peer-reviewed full-text journals.",
+       "formattedUrl": "www.sciencedirect.com/science/journal/01689452",
+       "htmlFormattedUrl": "www.sciencedirect.com/science/journal/01689452",
+       "pagemap": {
+        "cse_thumbnail": [
+         {
+          "width": "88",
+          "height": "120",
+          "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWtLrlyUM53aZNWlbMNqUW4-LzXe9GfWtzYgbdRhK2RmHVPm36LVGw"
+         }
+        ],
+        "cse_image": [
+         {
+          "src": "http://ars.els-cdn.com/content/image/S01689452.gif"
+         }
+        ]
+       }
+      }
+     ]
+    }

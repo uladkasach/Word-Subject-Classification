@@ -87,3 +87,35 @@ if(!$exec){
 
 
 print "[[==]]SCS[[==]]";
+
+
+if(isset($_POST["return_content"])){
+    $dom = new DOMDocument();
+    $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8')); // This way we dont get funny letters
+    $dom->strictErrorChecking = false;
+    $dom->formatOutput = true;
+    // remove scripts and styles
+    while (($r = $dom->getElementsByTagName("script")) && $r->length) {
+            $r->item(0)->parentNode->removeChild($r->item(0));
+    }
+    while (($r = $dom->getElementsByTagName("style")) && $r->length) {
+            $r->item(0)->parentNode->removeChild($r->item(0));
+    }
+    
+    
+    // get content in plain text format
+    //$content = $dom->textContent; - deprecated 1/18/17 
+    $content = $dom->saveHTML();
+    $content = strip_tags($content); // remove html tags
+    $content = html_entity_decode($content); // Clean up things like &amp;
+    $content = urldecode($content); // Strip out any url-encoded stuff
+    //var_dump($html);
+    
+    $content = preg_replace("/[\r\n]+/", " ", $content); // replace new lines with spaces
+    $content = strtolower($content); // lowercase everything
+    $content = preg_replace('/[0-9]+/', '', $content); // remove all numbers
+    $content = preg_replace('/\s+/', ' ', $content); // replace multiple white spaces with one white space
+    $content = preg_replace("/[^A-Za-z ]/", '', $content); // remove all nonalpha characters 
+    
+    var_dump($content);
+}
