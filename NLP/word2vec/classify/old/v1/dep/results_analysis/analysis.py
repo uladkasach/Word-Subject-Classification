@@ -100,6 +100,9 @@ def main(delta_mod, offset = '', write_offset = 'results_analysis/'):
     TP, TN, FP, FN = parse_results_from(RESULTS_SOURCE);
     print("Writing Stats...");
     data_string += ("TP:" + str(len(TP)) + "\nTN:" +  str(len(TN)) + "\nFP:" + str(len(FP)) + "\nFN:" + str(len(FN)) + "\n");
+    data_string += ("%FP:" + str(len(FP)/(len(TN)+len(FP))) + "\n%TP:" +  str(len(TP)/(len(TP)+len(FN))));
+    #%F P = F P/(T N +F P )
+    #%T P = T P/(T P +F N )
 
     #######################################
     ## Write FP Results, In order of decreasing Positive Confidence
