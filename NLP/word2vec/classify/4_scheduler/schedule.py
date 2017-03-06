@@ -48,8 +48,10 @@ for enum in enumerations:
         this_analyze_command = analyze_base + this_name + "; ";
         this_command_full = this_classify_command + this_analyze_command;
         command_chains.append(this_command_full);
-seconds =  3 * len(command_chains);
-print(len(command_chains), " total command chains, \nwhich at 3 sec per => total of ", seconds, "seconds = ", seconds/60, "minutes = ", seconds/3600, " hours"); 
+seconds =  2 * 60 * len(command_chains);
+print(len(command_chains), " total command chains, \nwhich at 3 min per => total of ", seconds, "seconds = ", seconds/60, "minutes = ", seconds/3600, " hours"); 
+print(" With parallelism, at ", PARALLEL_PROCESSES, ", this reduces to ", seconds/3600/PARALLEL_PROCESSES, " hours");
+exit();
 
 #############################
 ## Run command chains, X at a time, in parallel
