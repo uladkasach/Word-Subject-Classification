@@ -51,7 +51,6 @@ for enum in enumerations:
 seconds =  2 * 60 * len(command_chains);
 print(len(command_chains), " total command chains, \nwhich at 3 min per => total of ", seconds, "seconds = ", seconds/60, "minutes = ", seconds/3600, " hours"); 
 print(" With parallelism, at ", PARALLEL_PROCESSES, ", this reduces to ", seconds/3600/PARALLEL_PROCESSES, " hours");
-exit();
 
 #############################
 ## Run command chains, X at a time, in parallel
