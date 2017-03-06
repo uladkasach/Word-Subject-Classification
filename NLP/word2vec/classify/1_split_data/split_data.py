@@ -43,7 +43,7 @@ for i in range(len(sys.argv)):
 ## Set Default Data
 #########################################################
 OUTPUT_ROOT = 'results/';
-sampling_choices = ['random', 'over', 'under'];
+sampling_choices = ['random', 'over', 'under', 'SMOTE', 'SMOTE_NORM'];
 sampling = 'random';
 min_freq = 10;
 embedding_source = '../0_data_source/embeddings_5.6m_basic.csv';
@@ -64,7 +64,7 @@ if('min_freq' in arguments): min_freq = arguments['min_freq'];
 if('embedding_source' in arguments): embedding_source = arguments['embedding_source'];
 if('freq_source' in arguments): freq_source = arguments['freq_source'];
 if('label_source' in arguments): label_source = arguments['label_source'];
-if('split_ratio' in arguments): label_source = arguments['split_ratio'];
+if('split_ratio' in arguments): split_ratio = arguments['split_ratio'];
 
 
     
