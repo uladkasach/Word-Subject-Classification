@@ -5,6 +5,8 @@ import multiprocessing as mp
 import time
 
 
+PARALLEL_PROCESSES = int(sys.argv[1]);
+
 
 ############################
 ## Enumerate every set of the argument options
@@ -63,7 +65,7 @@ def callback_for_async(result):
 if __name__ == '__main__':
     globals_running_list = command_chains;
     pool = mp.Pool()
-    for i in range(2):
+    for i in range(PARALLEL_PROCESSES):
         callback_for_async(None);
     while True:
         print('checking again...');
