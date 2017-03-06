@@ -12,7 +12,6 @@ import time
 ################
 ## Import Inputs
 ################
-import sys
 import load_data
 import save_data
 import results_analysis.analysis as results_analysis
@@ -54,10 +53,6 @@ if( 'delta_mod' not in locals()):
 ###########################################################################
 ## Define Variables
 ###########################################################################
-TRUE_LABELS_SOURCE = '../../features/label_words/plant_words.txt';
-EMBEDDINGS_SOURCE = 'inputs/embeddings_5.6m_basic.csv';
-FREQUENCIES_SOURCE = "inputs/5.6m_basic_freq_table.csv";
-
 
 ###################################
 ## Hyper Parameters
@@ -152,9 +147,9 @@ biases = {
 pred = multilayer_perceptron(x, weights, biases)
 perc_pred = tf.nn.softmax(pred);
 
-###################################
+#########
 # Define loss and optimizer
-###################################
+##########
 #cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(pred, y)) ## Calculates cross entropy, taking into account edge softmax cases (predicitons of 0);
 #cost = tf.reduce_mean(tf.nn.weighted_cross_entropy_with_logits(pred, y, POS_WEIGHT)); ## Used to handle unbalanced classes better
 
