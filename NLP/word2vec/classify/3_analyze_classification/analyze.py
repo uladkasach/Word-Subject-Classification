@@ -84,7 +84,7 @@ def main(delta_mod, classifier_dir_mod = 'nn', data_source_type = 'test'):
     TP, TN, FP, FN = parse_results_from(RESULTS_POS_SOURCE);
     print("Writing Stats...");
     data_string += ("TP:" + str(len(TP)) + "\nTN:" +  str(len(TN)) + "\nFP:" + str(len(FP)) + "\nFN:" + str(len(FN)) + "\n");
-    data_string += ("%FP:" + str(len(FP)/(len(TN)+len(FP))) + "\n%TP:" +  str(len(TP)/(len(TP)+len(FN))));
+    data_string += ("%FP:" + str(len(FP)/(len(TN)+len(FP))) + "\n%TP:" +  str(len(TP)/(len(TP)+len(FN))) + "\n");
     #%F P = F P/(T N +F P )
     #%T P = T P/(T P +F N )
 
