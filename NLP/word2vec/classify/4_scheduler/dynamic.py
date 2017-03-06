@@ -1,6 +1,7 @@
 
+repeats_per_set = 5;
 arguments = {
-    "epochs" : [300],
+    "epochs" : [400],
     "learning_rate" : [0.1, 0.05, 0.025, 0.01, 0.005],
     "n_hidden_1" : [50, 40, 30, 20, 10, 5],
     "n_hidden_2" : [50, 40, 30, 20, 10, 5],

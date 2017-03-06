@@ -42,13 +42,15 @@ index = -1;
 command_chains = [];
 for enum in enumerations:
     index+=1;
-    this_name = "enum_"+str(index); 
-    this_classify_command = classify_base + "name:" + this_name + " " + enum + "; ";
-    this_analyze_command = analyze_base + this_name + "; ";
-    this_command_full = this_classify_command + this_analyze_command;
-    command_chains.append(this_command_full);
-    
-    
+    for repeat_index in range(dynamic.repeats_per_set):
+        this_name = "enum_"+str(index) + "_r" + str(repeat_index); 
+        this_classify_command = classify_base + "name:" + this_name + " " + enum + "; ";
+        this_analyze_command = analyze_base + this_name + "; ";
+        this_command_full = this_classify_command + this_analyze_command;
+        command_chains.append(this_command_full);
+seconds =  3 * len(command_chains);
+print(len(command_chains), " total command chains, \nwhich at 3 sec per => total of ", seconds, "seconds = ", seconds/60, "minutes = ", seconds/3600, " hours"); 
+
 #############################
 ## Run command chains, X at a time, in parallel
 #############################
