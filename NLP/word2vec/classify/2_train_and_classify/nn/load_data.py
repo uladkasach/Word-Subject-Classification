@@ -62,7 +62,7 @@ def return_regular_batch(data_source_path, batch_size):
     if(batch_size > 0):
         batch_data_length = batch_size;
     else:
-        batch_data_length = len(source_lines);
+        batch_data_length = len(source_lines) -1; ## -1 due to header row
     keys_list = []; ## only supports one key per row atm
     y_data = np.zeros([batch_data_length, one_hot_depth], 'float');
     feature_data = None; #numpy.zeros([batch_size, len(feature_index)], 'float');

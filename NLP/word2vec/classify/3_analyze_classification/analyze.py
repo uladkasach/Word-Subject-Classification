@@ -22,7 +22,6 @@ def main(delta_mod, classifier_dir_mod = 'nn', data_source_type = 'test'):
         freq = int(parts[1]);
         frequency_dict[word] = freq;
     f.close();
-    
 
     def parse_results_from(results_source):
         TP = [];
@@ -130,6 +129,40 @@ if __name__ == "__main__":
     if(sys.argv[1] == "-h"):
         print (" delta_mod, classifier_dir_mod, data_source_type, e.g., <dm> nn test");
         exit();
+    
+    #########################################################
+    ## Read Arguments
+    #########################################################
+    if(sys.argv[1] == "-h"):
+        print ("delta_mod classifier_dir_mod data_source_type");
+        exit();
+    arguments = dict();
+    acceptable_arguments = ['name', 'classifier_dir_mod', 'data_source_type'];
+    for i in range(len(sys.argv)):
+        if(i == 0):
+            continue;
+        this_argv = sys.argv[i];
+        parts = this_argv.split(":");
+        this_name = parts[0];
+        this_value = parts[1];
+        if(this_name not in acceptable_arguments):
+            print(this_name, " is not an acceptable argument. Error.");
+            exit();
+        arguments[this_name] = this_value;
+
+    #########################################################
+    ## Update data to arguments
+    #########################################################
+    if('name' in arguments):
+        delta_mod = arguments['name'];
+    else:
+        print("name is required. Error.");
+        exit();
+    if('classifier_dir_mod' in arguments):
+        classifier_dir_mod = arguments['classifier_dir_mod'];
+    else:
+        print("source_mod is required. Error.");
+        exit();    
         
-    delta_mod = sys.argv[1];
-    main(delta_mod);
+        
+    main(delta_mod, classifier_dir_mod);

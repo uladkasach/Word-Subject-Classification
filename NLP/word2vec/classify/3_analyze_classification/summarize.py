@@ -17,8 +17,10 @@ from tabulate import tabulate
 #######################################
 RESULTS_ROOT = "results/";
 SUMMARY_DELTA_MOD = sys.argv[1];
+FORCE_SHOW_ALL_REPEATS = False;
 
 
+print('Detecting all files....');
 #######################################
 ## Detect all results in results directory
 #######################################
@@ -27,17 +29,19 @@ result_files = [f for f in listdir(results_root) if isfile(join(results_root, f)
 #result_files.remove('.gitignore');
 result_files_old = result_files;
 result_files = [s for s in result_files_old if s.endswith(".csv")]
-
+print("Found ", len(result_files), " files.");
 #print(len(result_files));
 #exit();
 
 
+print('Loading all relevant results...');
 #######################################
 ## Load All Results
 #######################################
 full_data = [];
 wanted_traits = ["delta_mod", "%TP", "%FP", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "final_cost_found"]
 convert_to_float = [0, 1, 1, 1, 1, 1, 1, 1]
+repeat_considered = False; ## If repeats exist, we'll need to get the lowest cost repeat
 for this_file in result_files:
     ####
     ## For each file, find delta_mod, %TP, and %FP
@@ -55,6 +59,14 @@ for this_file in result_files:
                 this_value = parts[1];
                 if(this_base != "delta_mod"):
                     this_value = float(this_value);
+                else:
+                    potential_repeat_base = this_value.split("_r");
+                    #print(potential_repeat_index);
+                    if(len(potential_repeat_base) > 1):
+                        repeat_considered = True;
+                        repeat_base = potential_repeat_base[0];
+                        data_row["base"] = repeat_base;
+                    
                 data_row[this_base] = this_value;
                 parts_found += 1;
             if(parts_found == len(wanted_traits)):
@@ -63,16 +75,28 @@ for this_file in result_files:
     #print(data_row);
     data_row['goodness'] = data_row['%TP'] - data_row['%FP'];
     full_data.append(data_row);
-    
-results = pd.DataFrame(full_data, columns = ['delta_mod', '%TP', '%FP', 'goodness',  "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "final_cost_found"]).sort(['goodness'], ascending=[0]);
+if(FORCE_SHOW_ALL_REPEATS):
+    repeat_considered = False;
+if(repeat_considered):
+    the_columns = ['delta_mod', 'base', '%TP', '%FP', 'goodness', "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "final_cost_found"];
+else:
+    the_columns = ['delta_mod', '%TP', '%FP', 'goodness',  "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "final_cost_found"];
+results = pd.DataFrame(full_data, columns = the_columns);
+if(repeat_considered):
+    ## Group by base and only return min cost value one
+    results = results.sort(['final_cost_found'], ascending=[0]);
+    results = results.groupby('base').first();
+results = results.sort(['goodness'], ascending=[0]);
+
 results.index = range(1,len(results) + 1);
-#results.to_csv(path_or_buf="summaries/"+SUMMARY_DELTA_MOD+".csv", sep=',', index = False);
 def write_to_fwf(df, fname):
     content = tabulate(df.values.tolist(), list(df.columns), tablefmt="plain")
     open(fname, "w").write(content)
+print('Writing relevant results to csv file...');
 write_to_fwf(results, "summaries/"+SUMMARY_DELTA_MOD+".csv");
 #print(results);
 
+print('Generating and saving plot...');
 #######################################
 ## Plot the graph
 #######################################
@@ -86,5 +110,5 @@ plt.scatter(x_ROC, y_ROC, c=gradient_value)
 plt.plot(x_ROC[0], y_ROC[0], 'ro');
 plt.ylabel('%TP')
 plt.xlabel('%FP')
+plt.savefig("summaries/"+SUMMARY_DELTA_MOD+".png")
 plt.show()
-
