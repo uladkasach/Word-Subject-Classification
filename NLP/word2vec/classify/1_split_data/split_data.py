@@ -25,7 +25,7 @@ if(sys.argv[1] == "-h"):
     exit();
 
 arguments = dict();
-acceptable_arguments = ['random', 'min_freq', 'embedding_source', 'freq_source', 'label_source', 'name', 'split_ratio', 'sampling', 'over_sampling_multiplier', 'dev_mode_data_limit'];
+acceptable_arguments = ['random', 'min_freq', 'embedding_source', 'freq_source', 'label_source', 'name', 'split_ratio', 'sampling', 'over_sampling_multiplier','OSM', 'dev_mode_data_limit'];
 for i in range(len(sys.argv)):
     if(i == 0):
         continue;
@@ -75,10 +75,13 @@ if('sampling' in arguments):
     sampling = desired_sampling;
 
 if(sampling == 'over'):
-    if('over_sampling_multiplier' not in arguments):
-        print("over_sampling_multiplier must be defined when using over sampling. Error");
+    if('over_sampling_multiplier' not in arguments and 'OSM' not in arguments ):
+        print("over_sampling_multiplier / OSM must be defined when using over sampling. Error");
         exit();
-    over_sampling_multiplier = float(arguments['over_sampling_multiplier']); ## Usage: double positive class -> multiplier = 2; add 50%, multiplier = 1.5; 
+    if('OSM' in arguments):
+        over_sampling_multiplier = float(arguments['OSM']);
+    else:
+        over_sampling_multiplier = float(arguments['over_sampling_multiplier']);
     if(over_sampling_multiplier < 1):
         print("over_sampling_multipliere msut be greater than one, otherwise you're not sampling. Error.");
         exit();

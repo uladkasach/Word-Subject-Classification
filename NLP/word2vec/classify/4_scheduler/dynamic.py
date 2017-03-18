@@ -35,7 +35,7 @@ classification_arguments = {
 
 split_arguments = {
     "sampling" : ["over"],
-    "over_sampling_multiplier" : [1,  3,  5,  8, 10, 15],
+    "OSM" : [1,  3,  5,  8, 10, 15],
 }
 
 
