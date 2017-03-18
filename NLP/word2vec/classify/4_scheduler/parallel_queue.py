@@ -31,7 +31,7 @@ def begin_parallel_commands(command_chains, par_jobs):
         if(len(globals_running_list) == 0):
             pool.close();
             pool.join();
-            exit();
+            return;
         time.sleep(60);
         
         

@@ -183,4 +183,8 @@ if __name__ == '__main__':
     ## Run queue if not in dev mode
     ############################################
     if(dev_mode == 'false'):
-        parallel_queue.begin_parallel_commands(command_chains, PARALLEL_PROCESSES);
+        if(split_command_chains != []):
+            print('Running split_command chains...');
+            parallel_queue.begin_parallel_commands(split_command_chains, PARALLEL_PROCESSES);
+        print('Running classification and analysis chains...');
+        parallel_queue.begin_parallel_commands(cAndA_command_chains, PARALLEL_PROCESSES);

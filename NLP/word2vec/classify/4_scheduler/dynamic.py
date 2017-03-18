@@ -24,6 +24,8 @@ split_arguments = {
 }
 '''
 
+
+
 classification_arguments = {
     "epochs" : [400],
     "learning_rate" : [0.1, 0.05, 0.025],
@@ -37,6 +39,20 @@ split_arguments = {
     "sampling" : ["over"],
     "OSM" : [1,  3,  5,  8, 10, 15],
 }
+
+
+'''
+classification_arguments = {
+    "epochs" : [400],
+    "rtrue" : [7],
+}
+
+
+split_arguments = {
+    "sampling" : ["over"],
+    "OSM" : [1],
+}
+'''
 
 
 '''
