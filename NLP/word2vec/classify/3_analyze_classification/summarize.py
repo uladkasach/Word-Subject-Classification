@@ -15,7 +15,7 @@ from tabulate import tabulate
 #######################################
 ## User Inputs
 #######################################
-RESULTS_ROOT = "results/";
+RESULTS_ROOT = "results/test/";
 SUMMARY_DELTA_MOD = sys.argv[1];
 FORCE_SHOW_ALL_REPEATS = False;
 

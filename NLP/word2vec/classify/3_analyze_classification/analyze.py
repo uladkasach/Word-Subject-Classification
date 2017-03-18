@@ -86,7 +86,8 @@ def main(delta_mod, classifier_dir_mod = 'nn', data_source_type = 'test'):
     data_string += ("%FP:" + str(len(FP)/(len(TN)+len(FP))) + "\n%TP:" +  str(len(TP)/(len(TP)+len(FN))) + "\n");
     #%F P = F P/(T N +F P )
     #%T P = T P/(T P +F N )
-
+    
+    
     #######################################
     ## Write FP Results, In order of decreasing Positive Confidence
     #######################################
@@ -118,7 +119,7 @@ def main(delta_mod, classifier_dir_mod = 'nn', data_source_type = 'test'):
 
 
 
-    myfile = open("results/"+delta_mod+"_result.csv", "w+");
+    myfile = open("results/"+data_source_type+"/"+delta_mod+"_result.csv", "w+");
     myfile.write(data_string);
     myfile.close();
 
@@ -149,6 +150,11 @@ if __name__ == "__main__":
             print(this_name, " is not an acceptable argument. Error.");
             exit();
         arguments[this_name] = this_value;
+                  
+    #########################################################
+    ## Set Defaults
+    #########################################################
+    data_source_type = "test";
 
     #########################################################
     ## Update data to arguments
@@ -163,6 +169,7 @@ if __name__ == "__main__":
     else:
         print("source_mod is required. Error.");
         exit();    
+    if('data_source_type' in arguments): data_source_type = (arguments['data_source_type']);
         
         
-    main(delta_mod, classifier_dir_mod);
+    main(delta_mod, classifier_dir_mod, data_source_type);
