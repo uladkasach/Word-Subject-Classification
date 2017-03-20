@@ -27,11 +27,12 @@ split_arguments = {
 
 
 classification_arguments = {
+    "source_mod" : ["OSM1-samplingover", "OSM3-samplingover", "OSM5-samplingover", "OSM8-samplingover", "OSM10-samplingover", "OSM15-samplingover"],
     "epochs" : [400],
     "learning_rate" : [0.1, 0.05, 0.025],
     "n_hidden_1" : [40, 30, 20, 10, 5, 2],
     "n_hidden_2" : [40, 30, 20, 10, 5, 2],
-    "rtrue" : [1, 4],
+    "rtrue" : [1, 2, 3, 4],
 }
 
 

@@ -138,7 +138,7 @@ if __name__ == '__main__':
     ########################################
     ## Genereate split data command chains if required
     ########################################
-    if('key1' not in dynamic.classification_arguments or dynamic.classification_arguments['source_mod'] is None): ## Split arguments dont need to be set if split_source is defined
+    if('source_mod' not in dynamic.classification_arguments or dynamic.classification_arguments['source_mod'] is None): ## Split arguments dont need to be set if split_source is defined
         print("\n Source_mod not defined in arguments, generating split data commaand chains...");
         split_enumerations, split_names = recursive_list_enumerator(dynamic.split_arguments);
         split_base = "cd /var/www/git/Plants/NLP/word2vec/classify/1_split_data; python3 split_data.py "; 
