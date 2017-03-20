@@ -24,8 +24,7 @@ split_arguments = {
 }
 '''
 
-
-
+'''
 classification_arguments = {
     "source_mod" : ["OSM1-samplingover", "OSM3-samplingover", "OSM5-samplingover", "OSM8-samplingover", "OSM10-samplingover", "OSM15-samplingover"],
     "epochs" : [400],
@@ -34,13 +33,14 @@ classification_arguments = {
     "n_hidden_2" : [40, 30, 20, 10, 5, 2],
     "rtrue" : [1, 2, 3, 4],
 }
+'''
 
-
+'''
 split_arguments = {
     "sampling" : ["over"],
     "OSM" : [1,  3,  5,  8, 10, 15],
 }
-
+'''
 
 '''
 classification_arguments = {
@@ -56,14 +56,11 @@ split_arguments = {
 '''
 
 
-'''
+
 split_arguments = {
     "sampling" : ["over"],
-    "over_sampling_multiplier" : [1, 2, 3,  5,  8, 10, 15, 20, 25],
+    "OSM" : [1, 2, 3,  5,  8, 10, 15],
 }
-
-
 classification_arguments = {
     "njobs" : [2],
 }
-'''

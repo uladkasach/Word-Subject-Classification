@@ -71,13 +71,15 @@ def generate_split_data_command_chains(split_enumerations, split_names, split_ba
     split_source_names = [];
     for index in range(len(split_enumerations)):
         enum = split_enumerations[index];
-        this_name = split_names[index];
-        if(set_title is not None):
-            this_name = set_title + "_" + this_name;
-            
-        this_split_command = split_base + " name:" + this_name + " " + enum + "; ";
-        command_chains.append(this_split_command);
-        split_source_names.append(this_name);
+        for repeat_index in range(repeats_per_set):
+            this_name = split_names[index];
+            this_name = this_name + "_r" + str(repeat_index); 
+            if(set_title is not None):
+                this_name = set_title + "_" + this_name;
+                
+            this_split_command = split_base + " name:" + this_name + " " + enum + "; ";
+            command_chains.append(this_split_command);
+            split_source_names.append(this_name);
         if(index == limit -1):
             break;
     return command_chains, split_source_names;
@@ -108,7 +110,7 @@ if __name__ == '__main__':
     ## Set Defaults
     ########################################################
     set_title = None;
-    seconds_per_chain = None;
+    seconds_per_chain = dynamic.seconds_per_chain;
     PARALLEL_PROCESSES = 1;
     repeats_per_set = 3;
     split_enumerations = None;
@@ -173,9 +175,9 @@ if __name__ == '__main__':
     ###########################################
     ## Output stats if defined
     ###########################################
-    if(dynamic.seconds_per_chain is not None):
+    if(seconds_per_chain is not None):
         print("\n Outputting stats...");
-        seconds = dynamic.seconds_per_chain * len(command_chains);
+        seconds = seconds_per_chain * len(command_chains);
         print(len(command_chains), " total command chains, \nat ", dynamic.seconds_per_chain, " sec per => total of ", seconds, "seconds = ", seconds/60, "minutes = ", seconds/3600, " hours"); 
         print(" With parallelism, at ", PARALLEL_PROCESSES, ", this reduces to ", seconds/3600/PARALLEL_PROCESSES, " hours");
     

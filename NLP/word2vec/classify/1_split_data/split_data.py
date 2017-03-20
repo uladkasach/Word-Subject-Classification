@@ -25,7 +25,7 @@ if(sys.argv[1] == "-h"):
     exit();
 
 arguments = dict();
-acceptable_arguments = ['random', 'min_freq', 'embedding_source', 'freq_source', 'label_source', 'name', 'split_ratio', 'sampling', 'over_sampling_multiplier','OSM', 'dev_mode_data_limit'];
+acceptable_arguments = ['random', 'min_freq', 'embedding_source', 'freq_source', 'label_source', 'name', 'split_ratio', 'sampling', 'sampling_multiplier', 'SM', 'dev_mode_data_limit'];
 for i in range(len(sys.argv)):
     if(i == 0):
         continue;
@@ -75,18 +75,30 @@ if('sampling' in arguments):
     sampling = desired_sampling;
 
 if(sampling == 'over'):
-    if('over_sampling_multiplier' not in arguments and 'OSM' not in arguments ):
-        print("over_sampling_multiplier / OSM must be defined when using over sampling. Error");
+    if('sampling_multiplier' not in arguments and 'SM' not in arguments ):
+        print("sampling_multiplier / SM must be defined when using over sampling. Error");
         exit();
-    if('OSM' in arguments):
-        over_sampling_multiplier = float(arguments['OSM']);
+    if('SM' in arguments):
+        sampling_multiplier = float(arguments['SM']);
     else:
-        over_sampling_multiplier = float(arguments['over_sampling_multiplier']);
-    if(over_sampling_multiplier < 1):
-        print("over_sampling_multipliere msut be greater than one, otherwise you're not sampling. Error.");
+        sampling_multiplier = float(arguments['sampling_multiplier']);
+    if(sampling_multiplier < 1):
+        print("sampling_multiplier msut be greater than one for over sampling, otherwise you're not sampling. Error.");
         exit();
-    
 
+if(sampling == "under"):
+    if('sampling_multiplier' not in arguments and 'SM' not in arguments ):
+        print("sampling_multiplier / SM must be defined when using over sampling. Error");
+        exit();
+    if('SM' in arguments):
+        sampling_multiplier = float(arguments['SM']);
+    else:
+        sampling_multiplier = float(arguments['sampling_multiplier']);
+    if(sampling_multiplier > 1):
+        print("sampling_multiplier must be less than than one for under sampling, otherwise you're not sampling correctly. Error.");
+        exit();
+
+    
     
 #########################################################
 ## Load Data
@@ -174,20 +186,11 @@ true_ratio = true_words_size / total_words_size;
 test_size = int(np.ceil(int(parts[1])/100 * total_words_size));
 train_size = (total_words_size) - test_size;
 
-if(sampling == "over"):
-    over_true_ratio = true_words_size * over_sampling_multiplier / total_words_size; 
-    new_train_size = int(np.ceil(train_size + train_size * (over_true_ratio - true_ratio))); ## Account for additional true values in train_size
 #######
 ## if upsampling or downsampling training data, reflect that before displaying training size.
 #######
 print("True Words Size ", true_words_size, ", Total Words Size ", total_words_size, ", True Ratio = ", true_ratio);
 print("Test size ", test_size, ", Train Size ", train_size);
-'''
-if(sampling == "over"):
-    print("With oversampling, True Ratio = ", over_true_ratio, " Train Size = ", new_train_size);
-    train_size = new_train_size;
-exit();
-'''
 
 
 ##################
@@ -209,9 +212,9 @@ train_false_set = false_words[test_false_size+1:];
 ## Modify Training's True and False sets as dictated by sampling
 ##################
 if(sampling == 'over'):
-    #over_sampling_multiplier
+    #sampling_multiplier
     train_true_size = train_true_set.shape[0];
-    additional_true_samples_required = int(np.ceil((over_sampling_multiplier - 1) * train_true_size));
+    additional_true_samples_required = int(np.ceil((sampling_multiplier - 1) * train_true_size));
     orig_additional_true_samples_required = additional_true_samples_required;
     additional_samples_set = pd.DataFrame(columns = data_columns);
     while (additional_true_samples_required > train_true_size):
@@ -224,6 +227,12 @@ if(sampling == 'over'):
     
     train_true_set = pd.concat([train_true_set, additional_samples_set], ignore_index=True);
     print('With oversampling, train_true_set is now at length', train_true_set.shape[0], ' - originally ', train_true_size);
+if(sampling == 'under'):
+    #sampling_multiplier
+    train_false_size = train_false_set.shape[0];
+    total_false_samples_required = int(np.floor(sampling_multiplier * train_false_size));
+    train_false_set = train_false_set.sample(n=total_false_samples_required);
+    print('With undersampling, train_false_set is now at length', train_false_set.shape[0], ' - originally ', train_false_size);
 
 
 ##################
