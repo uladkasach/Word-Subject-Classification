@@ -38,7 +38,7 @@ classification_arguments = {
 '''
 split_arguments = {
     "sampling" : ["over"],
-    "OSM" : [1,  3,  5,  8, 10, 15],
+    "SM" : [1,  3,  5,  8, 10, 15],
 }
 '''
 
@@ -51,15 +51,16 @@ classification_arguments = {
 
 split_arguments = {
     "sampling" : ["over"],
-    "OSM" : [1],
+    "SM" : [1],
 }
 '''
 
-
-
+'''
+python3 schedule.py set_title:RFSMOTE repeats_per_split_set:3 classifier_choice:random_forest seconds_per_chain:60 parallel:2
+'''
 split_arguments = {
-    "sampling" : ["over"],
-    "OSM" : [1, 2, 3,  5,  8, 10, 15],
+    "sampling" : ["SMOTE"],
+    "SM" : [1, 2, 3,  5, 8, 10, 15],
 }
 classification_arguments = {
     "njobs" : [2],

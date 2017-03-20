@@ -135,7 +135,7 @@ if __name__ == "__main__":
     ## Read Arguments
     #########################################################
     if(sys.argv[1] == "-h"):
-        print ("delta_mod classifier_dir_mod data_source_type");
+        print ("name classifier_dir_mod data_source_type");
         exit();
     arguments = dict();
     acceptable_arguments = ['name', 'classifier_dir_mod', 'data_source_type'];

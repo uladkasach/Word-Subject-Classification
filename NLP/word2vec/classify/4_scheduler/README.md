@@ -1,1 +1,0 @@
-This process could be made much more efficient with async/onresponse calls availible in javascript (node)

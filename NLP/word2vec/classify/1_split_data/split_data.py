@@ -14,6 +14,7 @@ import sys;
 import numpy as np;
 import random;
 import pandas as pd;
+import split_support;
 
 
 
@@ -25,7 +26,7 @@ if(sys.argv[1] == "-h"):
     exit();
 
 arguments = dict();
-acceptable_arguments = ['random', 'min_freq', 'embedding_source', 'freq_source', 'label_source', 'name', 'split_ratio', 'sampling', 'sampling_multiplier', 'SM', 'dev_mode_data_limit'];
+acceptable_arguments = ['random', 'min_freq', 'embedding_source', 'freq_source', 'label_source', 'name', 'split_ratio', 'sampling', 'sampling_multiplier', 'SM', 'dev_mode_data_limit', 'dist'];
 for i in range(len(sys.argv)):
     if(i == 0):
         continue;
@@ -51,6 +52,7 @@ freq_source = '../0_data_source/5.6m_basic_freq_table.csv';
 label_source = '../../features/label_words/plant_words.txt';
 split_ratio = '80/20';
 DEV_MODE_DATA_LIMIT = False;
+distance_measure = 'SSE'; # used for SMOTE 
 
 #########################################################
 ## Update data to arguments
@@ -67,6 +69,11 @@ if('freq_source' in arguments): freq_source = arguments['freq_source'];
 if('label_source' in arguments): label_source = arguments['label_source'];
 if('split_ratio' in arguments): split_ratio = arguments['split_ratio'];
 if('dev_mode_data_limit' in arguments): DEV_MODE_DATA_LIMIT = int(arguments['dev_mode_data_limit']);
+if('dist' in arguments): 
+    distance_measure = arguments['dist'];
+    if(distance_measure not in ['SSE', 'cos']):
+        print(distance_measure, " is not a valid distance measure for SMOTE. Error.");
+        exit();
 if('sampling' in arguments): 
     desired_sampling = arguments['sampling'];
     if(desired_sampling not in sampling_choices):
@@ -74,7 +81,7 @@ if('sampling' in arguments):
         exit();
     sampling = desired_sampling;
 
-if(sampling == 'over'):
+if(sampling == 'over' or sampling == "under" or sampling == "SMOTE"):
     if('sampling_multiplier' not in arguments and 'SM' not in arguments ):
         print("sampling_multiplier / SM must be defined when using over sampling. Error");
         exit();
@@ -82,22 +89,19 @@ if(sampling == 'over'):
         sampling_multiplier = float(arguments['SM']);
     else:
         sampling_multiplier = float(arguments['sampling_multiplier']);
+        
+if(sampling == "over"):
     if(sampling_multiplier < 1):
         print("sampling_multiplier msut be greater than one for over sampling, otherwise you're not sampling. Error.");
         exit();
-
 if(sampling == "under"):
-    if('sampling_multiplier' not in arguments and 'SM' not in arguments ):
-        print("sampling_multiplier / SM must be defined when using over sampling. Error");
-        exit();
-    if('SM' in arguments):
-        sampling_multiplier = float(arguments['SM']);
-    else:
-        sampling_multiplier = float(arguments['sampling_multiplier']);
     if(sampling_multiplier > 1):
         print("sampling_multiplier must be less than than one for under sampling, otherwise you're not sampling correctly. Error.");
         exit();
-
+if(sampling == "SMOTE"):
+    if(sampling_multiplier < 1):
+        print("sampling_multiplier msut be greater than one for SMOTE sampling, otherwise you're not sampling. Error.");
+        exit();
     
     
 #########################################################
@@ -233,6 +237,15 @@ if(sampling == 'under'):
     total_false_samples_required = int(np.floor(sampling_multiplier * train_false_size));
     train_false_set = train_false_set.sample(n=total_false_samples_required);
     print('With undersampling, train_false_set is now at length', train_false_set.shape[0], ' - originally ', train_false_size);
+if(sampling == 'SMOTE'):
+    #sampling_multiplier
+    train_true_size = train_true_set.shape[0];
+    additional_true_samples_required = int(np.ceil((sampling_multiplier - 1) * train_true_size));
+    times = sampling_multiplier - 1;
+    additional_samples_set = split_support.generate_SMOTE_samples(train_true_set, times, distance_type = distance_measure);		
+    #additional_samples_set = pd.concat([additional_samples_set, repeated_samples], ignore_index=True);
+    train_true_set = pd.concat([train_true_set, additional_samples_set], ignore_index=True);
+    print('With oversampling, train_true_set is now at length', train_true_set.shape[0], ' - originally ', train_true_size);
 
 
 ##################
@@ -251,8 +264,9 @@ test_set = test_set.reindex(np.random.permutation(test_set.index));
 train_set = train_set.reindex(np.random.permutation(train_set.index));
 
 
-
+print('Test set head...');
 print(test_set[['label', 0]].head());
+print('Train set head...');
 print(train_set[['label', 0]].head());
 
 #########################################################
