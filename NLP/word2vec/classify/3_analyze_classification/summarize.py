@@ -39,8 +39,8 @@ print('Loading all relevant results...');
 ## Load All Results
 #######################################
 full_data = [];
-wanted_traits = ["delta_mod", "%TP", "%FP", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "final_cost_found"]
-convert_to_float = [0, 1, 1, 1, 1, 1, 1, 1]
+wanted_traits = ["delta_mod", "%TP", "%FP", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "final_cost_found"]
+convert_to_float = [0, 1, 1, 1, 1, 1, 1, 0, 1]
 repeat_considered = False; ## If repeats exist, we'll need to get the lowest cost repeat
 for this_file in result_files:
     ####
@@ -57,9 +57,10 @@ for this_file in result_files:
             if(this_base in wanted_traits):
                 #print(this_base);
                 this_value = parts[1];
-                if(this_base != "delta_mod"):
+                if(convert_to_float[wanted_traits.index(this_base)] == 1):
                     this_value = float(this_value);
-                else:
+                    
+                if(this_base == "delta_mod"):
                     potential_repeat_base = this_value.split("_r");
                     #print(potential_repeat_index);
                     if(len(potential_repeat_base) > 1):
@@ -78,9 +79,9 @@ for this_file in result_files:
 if(FORCE_SHOW_ALL_REPEATS):
     repeat_considered = False;
 if(repeat_considered):
-    the_columns = ['delta_mod', 'base', '%TP', '%FP', 'goodness', "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "final_cost_found"];
+    the_columns = ['delta_mod', 'base', '%TP', '%FP', 'goodness', "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "final_cost_found"];
 else:
-    the_columns = ['delta_mod', '%TP', '%FP', 'goodness',  "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "final_cost_found"];
+    the_columns = ['delta_mod', '%TP', '%FP', 'goodness',  "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "final_cost_found"];
 results = pd.DataFrame(full_data, columns = the_columns);
 if(repeat_considered):
     ## Group by base and only return min cost value one
