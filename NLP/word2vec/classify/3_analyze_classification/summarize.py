@@ -7,6 +7,7 @@
 
 from os import listdir
 from os.path import isfile, join
+import numpy as np;
 import pandas as pd;
 import sys;
 import matplotlib.pyplot as plt
@@ -84,9 +85,12 @@ else:
     the_columns = ['delta_mod', '%TP', '%FP', 'goodness',  "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "final_cost_found"];
 results = pd.DataFrame(full_data, columns = the_columns);
 if(repeat_considered):
-    ## Group by base and only return min cost value one
-    results = results.sort(['final_cost_found'], ascending=[0]);
-    results = results.groupby('base').first();
+    if( not (np.isnan(results['final_cost_found'].tolist()[0])) ): ## if final_cost exists (does not for rf)
+        ## Group by base and only return min cost value one
+        results = results.sort(['final_cost_found'], ascending=[0]);
+        results = results.groupby('base').first();
+    else: 
+        results = results.drop('base', axis=1);
 results = results.sort(['goodness'], ascending=[0]);
 
 results.index = range(1,len(results) + 1);

@@ -56,12 +56,25 @@ split_arguments = {
 '''
 
 '''
-python3 schedule.py set_title:RFSMOTE repeats_per_split_set:3 classifier_choice:random_forest seconds_per_chain:60 parallel:2
+python3 schedule.py set_title:RFSMOTE repeats_per_split_set:3 classifier_choice:random_forest seconds_per_chain:60 parallel:2 dev_mode:true
 '''
+
 split_arguments = {
     "sampling" : ["SMOTE"],
-    "SM" : [1, 2, 3,  5, 8, 10, 15],
+    "SM" : [1,  3,  5, 8, 10, 15],
 }
+classification_arguments = {
+    "epochs" : [400],
+    "learning_rate" : [0.1, 0.05, 0.025],
+    "n_hidden_1" : [30, 20, 10, 5, 2],
+    "n_hidden_2" : [30, 20, 10, 5, 2],
+    "rtrue" : [1, 5, 10, 20, 30, 40, 50, 60,],
+}
+
+
+'''
 classification_arguments = {
     "njobs" : [2],
 }
+
+'''
