@@ -3,7 +3,7 @@
 clear
 
 file_source = '/var/www/git/Plants/NLP/word2vec/features/embed/results/embeddings_5.6m_basic.csv';
-save_dest = '/var/www/git/Plants/NLP/word2vec/features/embed_analysis/mat/embeddings_5.6m_basic.m';
+save_dest = '/var/www/git/Plants/NLP/word2vec/features/embed_analysis/mat/embeddings_5.6m_basic.mat';
 
 
 keys = {};
@@ -42,4 +42,4 @@ if true
     error('here i am');
 end
 
-save(save_dest)
+save(save_dest, 'keys', 'embeddings');
