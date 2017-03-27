@@ -3,6 +3,8 @@ import pandas as pd;
 import numpy as np;
 import sys;
 
+## cd /var/www/git/Plants/NLP/word2vec/classify/2_train_and_classify/random_forest/; python3 classifier.py name:test source_mod:SMOTE_15 rtrue:10
+
 
 ##########################################################################
 ## Load Inputs and HPs
@@ -14,7 +16,7 @@ if(sys.argv[1] == "-h"):
     print ("name source_mod njobs");
     exit();
 arguments = dict();
-acceptable_arguments = ['name', 'source_mod', 'njobs'];
+acceptable_arguments = ['name', 'source_mod', 'njobs', 'rtrue'];
 for i in range(len(sys.argv)):
     if(i == 0):
         continue;
@@ -32,6 +34,9 @@ for i in range(len(sys.argv)):
 ## Set Default Data
 #########################################################
 NJOBS = 2;
+class_weight = dict();
+class_weight[0] = 1;
+class_weight[1] = 1;
 
 #########################################################
 ## Update data to arguments
@@ -49,7 +54,7 @@ else:
     print("source_mod is required. Error.");
     exit();
 if('njobs' in arguments): NJOBS = int(arguments['njobs']);
-    
+if('rtrue' in arguments): class_weight[1] = int(arguments['rtrue']);
     
 #############################################################
 ## Load Data
@@ -103,7 +108,7 @@ print(test_labels[0:50]);
 ###############################
 ## Train Classifier
 ###############################
-classifier = RandomForestClassifier(n_jobs=NJOBS)
+classifier = RandomForestClassifier(n_jobs=NJOBS, class_weight=class_weight);
 print('Training Classifier...');
 classifier.fit(train_features, train_labels)
 
