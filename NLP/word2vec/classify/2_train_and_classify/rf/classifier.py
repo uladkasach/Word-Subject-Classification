@@ -16,7 +16,7 @@ if(sys.argv[1] == "-h"):
     print ("name source_mod njobs");
     exit();
 arguments = dict();
-acceptable_arguments = ['name', 'source_mod', 'njobs', 'rtrue'];
+acceptable_arguments = ['name', 'source_mod', 'njobs', 'rtrue', 'classifier_choice'];
 for i in range(len(sys.argv)):
     if(i == 0):
         continue;
@@ -37,6 +37,7 @@ NJOBS = 2;
 class_weight = dict();
 class_weight[0] = 1;
 class_weight[1] = 1;
+rtrue = 1; # for hyper parameter output
 
 #########################################################
 ## Update data to arguments
@@ -55,6 +56,7 @@ else:
     exit();
 if('njobs' in arguments): NJOBS = int(arguments['njobs']);
 if('rtrue' in arguments): class_weight[1] = int(arguments['rtrue']);
+if('rtrue' in arguments): rtrue = int(arguments['rtrue']); # for hyper parameter output
     
 #############################################################
 ## Load Data
@@ -156,7 +158,7 @@ record_predictions(train_classification, delta_mod, "train");
 ## Save Hyperparameter config
 #################################
 hyperstring = "";
-hyperparamlist = ['delta_mod', 'source_mod'];
+hyperparamlist = ['delta_mod', 'source_mod', 'NJOBS', 'rtrue', 'classifier_choice' ];
 for name in hyperparamlist:
     name_of_var = name;
     val_of_var = eval(name);

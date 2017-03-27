@@ -50,7 +50,7 @@ min_freq = 10;
 embedding_source = '../0_data_source/embeddings_5.6m_basic.csv';
 freq_source = '../0_data_source/5.6m_basic_freq_table.csv';
 label_source = '../../features/label_words/plant_words.txt';
-split_ratio = '80/20';
+split_ratio = '70/30';
 DEV_MODE_DATA_LIMIT = False;
 distance_measure = 'SSE'; # used for SMOTE 
 

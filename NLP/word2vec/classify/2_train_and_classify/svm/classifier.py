@@ -14,7 +14,7 @@ if(sys.argv[1] == "-h"):
     print ("name source_mod njobs");
     exit();
 arguments = dict();
-acceptable_arguments = ['name', 'source_mod', 'njobs', 'rtrue', 'dev_mode', 'kernel', 'gamma', 'degree', 'verbose'];
+acceptable_arguments = ['name', 'source_mod', 'njobs', 'rtrue', 'dev_mode', 'kernel', 'gamma', 'degree', 'verbose', 'classifier_choice'];
 for i in range(len(sys.argv)):
     if(i == 0):
         continue;
@@ -42,6 +42,7 @@ KERNEL = 'linear';
 degree = 3;
 gamma = 'auto';
 verbose = False;
+rtrue = 1; # for hyper parameter output
 #########################################################
 ## Update data to arguments
 #########################################################
@@ -59,6 +60,7 @@ else:
     exit();
     
 if('rtrue' in arguments): class_weight[1] = int(arguments['rtrue']);
+if('rtrue' in arguments): rtrue = int(arguments['rtrue']); # for hyper parameter output
 if('njobs' in arguments): NJOBS = int(arguments['njobs']);
 if('dev_mode' in arguments): dev_mode = (arguments['dev_mode']);
 if('verbose' in arguments and arguments['verbose'] == 'true'):  verbose = True;
@@ -198,7 +200,7 @@ record_predictions(train_classification, delta_mod, "train");
 ## Save Hyperparameter config
 #################################
 hyperstring = "";
-hyperparamlist = ['delta_mod', 'source_mod'];
+hyperparamlist = ['delta_mod', 'source_mod', 'NJOBS', 'rtrue', 'dev_mode', 'KERNEL', 'gamma', 'degree', 'classifier_choice'];
 for name in hyperparamlist:
     name_of_var = name;
     val_of_var = eval(name);

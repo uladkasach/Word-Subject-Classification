@@ -21,7 +21,7 @@ if(sys.argv[1] == "-h"):
     print ("name rtrue min_freq batch_size learning_rate n_hidden_1 n_hidden_2 epochs");
     exit();
 arguments = dict();
-acceptable_arguments = ['name', 'source_mod', 'rtrue',  'batch_size', 'learning_rate', 'n_hidden_1', 'n_hidden_2', 'epochs'];
+acceptable_arguments = ['name', 'source_mod', 'rtrue',  'batch_size', 'learning_rate', 'n_hidden_1', 'n_hidden_2', 'epochs', 'classifier_choice'];
 for i in range(len(sys.argv)):
     if(i == 0):
         continue;
@@ -279,7 +279,7 @@ with tf.Session() as sess:
     epochs = EPOCHS;
     rtrue = R_True;
     hyperstring = "";
-    hyperparamlist = ['delta_mod', 'source_mod',  'epochs',  'batch_size', 'learning_rate', 'n_hidden_1', 'n_hidden_2',  'rtrue' , 'final_cost_found'];
+    hyperparamlist = ['delta_mod', 'source_mod',  'epochs',  'batch_size', 'learning_rate', 'n_hidden_1', 'n_hidden_2',  'rtrue' , 'final_cost_found', 'classifier_choice'];
     for name in hyperparamlist:
         name_of_var = name;
         val_of_var = eval(name);

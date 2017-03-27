@@ -8,7 +8,6 @@ import parallel_queue
 
 
 
-
 ############################
 ## Enumerate every set of the argument options
 ############################
@@ -86,6 +85,11 @@ def generate_split_data_command_chains(split_enumerations, split_names, split_ba
         
 if __name__ == '__main__':
     
+    
+    '''
+    cd /var/www/git/Plants/NLP/word2vec/classify/4_scheduler/; python3 schedule.py seconds_per_chain:180 parallel:2 dev_mode:true
+    '''
+
     #########################################################
     ## Read Arguments
     #########################################################
@@ -93,7 +97,7 @@ if __name__ == '__main__':
         print ("delta_mod classifier_dir_mod data_source_type");
         exit();
     arguments = dict();
-    acceptable_arguments = ['set_title', 'classifier_choice', 'repeats_per_set', 'repeats_per_split_set', 'seconds_per_chain', 'parallel', 'dev_mode'];
+    acceptable_arguments = ['set_title',  'repeats_per_set', 'repeats_per_split_set', 'seconds_per_chain', 'parallel', 'dev_mode'];
     for i in range(len(sys.argv)):
         if(i == 0):
             continue;
@@ -110,7 +114,7 @@ if __name__ == '__main__':
     ## Set Defaults
     ########################################################
     set_title = None;
-    seconds_per_chain = dynamic.seconds_per_chain;
+    seconds_per_chain = 180;
     PARALLEL_PROCESSES = 1;
     repeats_per_set = 3;
     split_enumerations = None;
@@ -122,11 +126,6 @@ if __name__ == '__main__':
     #########################################################
     ## Update data to arguments
     #########################################################
-    if('classifier_choice' in arguments):
-        classifier_choice = arguments['classifier_choice'];
-    else:
-        print("classifier_choice is required. Error.");
-        exit();    
     if('set_title' in arguments): set_title = arguments['set_title'];
     if('repeats_per_set' in arguments): repeats_per_set = int(arguments['repeats_per_set']);
     if('repeats_per_split_set' in arguments): repeats_per_split_set = int(arguments['repeats_per_split_set']);
@@ -135,33 +134,58 @@ if __name__ == '__main__':
     if('dev_mode' in arguments): dev_mode = bool(arguments['dev_mode']);
     
     ###########################################################
+    ## Ensure that dynamic arguments are properly initialized
+    ###########################################################
+    assert isinstance(dynamic.split_arguments, list);
+    assert isinstance(dynamic.classification_arguments, list);
+    for argument_set in dynamic.classification_arguments:
+        assert 'classifier_choice' in argument_set;
+        assert isinstance(argument_set['classifier_choice'], list);
+        assert 'source_mod' not in argument_set; # ensures same source used for all classification
     
     
     ########################################
     ## Genereate split data command chains if required
     ########################################
-    if('source_mod' not in dynamic.classification_arguments or dynamic.classification_arguments['source_mod'] is None): ## Split arguments dont need to be set if split_source is defined
-        print("\n Source_mod not defined in arguments, generating split data commaand chains...");
-        split_enumerations, split_names = recursive_list_enumerator(dynamic.split_arguments);
+    split_command_chains = [];
+    if(not hasattr(dynamic, 'source_mod') or dynamic.source_mod is None): ## Split arguments dont need to be set if split_source is defined
+        print("\n Source_mod not defined in split arguments, generating split data commaand chains...");
         split_base = "cd /var/www/git/Plants/NLP/word2vec/classify/1_split_data; python3 split_data.py "; 
+        split_enumerations = [];
+        split_names = [];
+        for argument_set_index, argument_set in enumerate(dynamic.split_arguments):
+            these_split_enumerations, these_split_names = recursive_list_enumerator(argument_set);
+            split_enumerations.extend(these_split_enumerations);
+            split_names.extend(these_split_names);
         split_command_chains, split_source_names = generate_split_data_command_chains(split_enumerations, split_names, split_base, repeats_per_split_set, set_title = set_title);
         print(split_command_chains[0:2]);
+        print("Number of split command chains: ", len(split_command_chains));
         ### Modify Classification Arguments to use the split_source given
-        dynamic.classification_arguments['source_mod'] = split_source_names;
+        dynamic.source_mod = split_source_names;
         #print(dynamic.classification_arguments);
         #exit();
-    else:
-        split_command_chains = [];
         
     #########################################
     ## Generate Classification and Analysis Command Chains
     #########################################
     print('\n Generating classification and Analysis command chains...');
-    classify_base = "cd /var/www/git/Plants/NLP/word2vec/classify/2_train_and_classify/"+classifier_choice+"/; python3 classifier.py "; 
-    analyze_base = "cd /var/www/git/Plants/NLP/word2vec/classify/3_analyze_classification/; python3 analyze.py classifier_dir_mod:"+classifier_choice+" ";
-    classification_enumerations, _ = recursive_list_enumerator(dynamic.classification_arguments);
-    cAndA_command_chains = generate_classify_and_analyze_command_chains(classification_enumerations, classify_base,  analyze_base, repeats_per_set, set_title = set_title );
+    cAndA_command_chains = [];
+    for argument_set_index, argument_set in enumerate(dynamic.classification_arguments):
+        ## Define argument_set_title to prevent overwriting
+        argument_set_title = "Ar"+str(argument_set_index);
+        if(set_title is not None):
+            argument_set_title = set_title + "_" + argument_set_title;
+        ## Define source_mod arguments
+        argument_set["source_mod"] = dynamic.source_mod;
+        ## Handle classifier_choice 
+        classifier_choice = argument_set["classifier_choice"][0];
+        this_classify_base = "cd /var/www/git/Plants/NLP/word2vec/classify/2_train_and_classify/"+classifier_choice+"/; python3 classifier.py "; 
+        this_analyze_base = "cd /var/www/git/Plants/NLP/word2vec/classify/3_analyze_classification/; python3 analyze.py classifier_dir_mod:"+classifier_choice+" ";
+        these_classification_enumerations, _ = recursive_list_enumerator(argument_set);
+        these_cAndA_command_chains = generate_classify_and_analyze_command_chains(these_classification_enumerations, this_classify_base, this_analyze_base, repeats_per_set, set_title = argument_set_title );
+        cAndA_command_chains.extend(these_cAndA_command_chains);
     print(cAndA_command_chains[0:2]);
+    print("Number of classification and analysis command chains: ", len(cAndA_command_chains));
     
     ##########################################
     ## Combine command chains
@@ -170,7 +194,7 @@ if __name__ == '__main__':
     command_chains = [];
     command_chains.extend(split_command_chains);
     command_chains.extend(cAndA_command_chains);
-    print(command_chains[0:2]);
+    #print(command_chains[0:2]);
     
     ###########################################
     ## Output stats if defined
@@ -178,7 +202,7 @@ if __name__ == '__main__':
     if(seconds_per_chain is not None):
         print("\n Outputting stats...");
         seconds = seconds_per_chain * len(command_chains);
-        print(len(command_chains), " total command chains, \nat ", dynamic.seconds_per_chain, " sec per => total of ", seconds, "seconds = ", seconds/60, "minutes = ", seconds/3600, " hours"); 
+        print(len(command_chains), " total command chains, \nat ", seconds_per_chain, " sec per => total of ", seconds, "seconds = ", seconds/60, "minutes = ", seconds/3600, " hours"); 
         print(" With parallelism, at ", PARALLEL_PROCESSES, ", this reduces to ", seconds/3600/PARALLEL_PROCESSES, " hours");
     
     ############################################
@@ -190,3 +214,8 @@ if __name__ == '__main__':
             parallel_queue.begin_parallel_commands(split_command_chains, PARALLEL_PROCESSES);
         print('Running classification and analysis chains...');
         parallel_queue.begin_parallel_commands(cAndA_command_chains, PARALLEL_PROCESSES);
+    else:
+        f = open("dev_output.txt", 'w+')
+        for command in command_chains:
+            f.write(command+'\n');  # python will convert \n to os.linesep
+        f.close()  # you can omit in most cases as the destructor will call it
