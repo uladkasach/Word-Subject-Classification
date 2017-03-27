@@ -54,12 +54,15 @@ classification_arguments.append({
     "kernel" : ["sigmoid"],
 })
 
-'''
 classification_arguments.append({
     "classifier_choice" : ["rf"],
+    "rtrue" : [1, 5, 10, 20, 30, 40, 50 ],
 })
 classification_arguments.append({
     "classifier_choice" : ["nn"],
+    "epochs" : [400],
+    "learning_rate" : [0.1, 0.05, 0.025],
+    "n_hidden_1" : [40, 30, 20, 10, 5, 2],
+    "n_hidden_2" : [40, 30, 20, 10, 5, 2],
+    "rtrue" : [1, 5, 10, 20, 30, 40, 50],
 })
-'''
-

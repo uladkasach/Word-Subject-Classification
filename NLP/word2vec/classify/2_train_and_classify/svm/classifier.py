@@ -59,6 +59,7 @@ else:
     print("source_mod is required. Error.");
     exit();
     
+if('classifier_choice' in arguments):  classifier_choice = (arguments['classifier_choice']);
 if('rtrue' in arguments): class_weight[1] = int(arguments['rtrue']);
 if('rtrue' in arguments): rtrue = int(arguments['rtrue']); # for hyper parameter output
 if('njobs' in arguments): NJOBS = int(arguments['njobs']);

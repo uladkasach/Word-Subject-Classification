@@ -179,8 +179,8 @@ if __name__ == '__main__':
         argument_set["source_mod"] = dynamic.source_mod;
         ## Handle classifier_choice 
         classifier_choice = argument_set["classifier_choice"][0];
-        this_classify_base = "cd /var/www/git/Plants/NLP/word2vec/classify/2_train_and_classify/"+classifier_choice+"/; python3 classifier.py "; 
-        this_analyze_base = "cd /var/www/git/Plants/NLP/word2vec/classify/3_analyze_classification/; python3 analyze.py classifier_dir_mod:"+classifier_choice+" ";
+        this_classify_base = "cd /var/www/git/Plants/NLP/word2vec/classify/2_train_and_classify/"+classifier_choice+"/&& python3 classifier.py "; 
+        this_analyze_base = "cd /var/www/git/Plants/NLP/word2vec/classify/3_analyze_classification/&& python3 analyze.py classifier_dir_mod:"+classifier_choice+" ";
         these_classification_enumerations, _ = recursive_list_enumerator(argument_set);
         these_cAndA_command_chains = generate_classify_and_analyze_command_chains(these_classification_enumerations, this_classify_base, this_analyze_base, repeats_per_set, set_title = argument_set_title );
         cAndA_command_chains.extend(these_cAndA_command_chains);

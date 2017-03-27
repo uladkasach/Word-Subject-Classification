@@ -67,7 +67,7 @@ if('learning_rate' in arguments): learning_rate = float(arguments['learning_rate
 if('n_hidden_1' in arguments): n_hidden_1 = int(arguments['n_hidden_1']);
 if('n_hidden_2' in arguments): n_hidden_2 = int(arguments['n_hidden_2']);
 if('epochs' in arguments): EPOCHS = int(arguments['epochs']);
-    
+if('classifier_choice' in arguments):  classifier_choice = (arguments['classifier_choice']);
     
     
     
