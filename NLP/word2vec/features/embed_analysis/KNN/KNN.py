@@ -1,6 +1,19 @@
 import numpy as np
 import sys
 
+'''
+cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 forest google && cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 confier google && cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 honeysuckles google && cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 eucalyptus_tree google && cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 shrub google && cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 grass google && cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 succulents google && cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 rootbound google
+
+
+honeysuckles
+conifer
+eucalyptus_tree
+
+shrub
+grass
+succulents
+'''
+
 #source = 'GoogleNews-vectors-negative300.txt';
 #vocab_size = 3000000;
 
@@ -9,7 +22,12 @@ import sys
 source = sys.argv[1];
 target_word = sys.argv[3];#'plant';
 n = int(sys.argv[2]); #50;
+#vocab_size = 10000;
 vocab_size = -1;
+if(len(sys.argv) > 4):
+    output_path_mod = sys.argv[4];
+else:
+    output_path_mod = None;
 
 '''
 f = open(source, 'r');
@@ -25,10 +43,11 @@ exit();
 ## Step 1;
 ## Find "plant" and record its vector
 #############
+
 plant_vector = None
 i = -1;
 f = open(source, 'r');
-for line in f.readlines():
+for line in f:
     i = i + 1;
     parts = line.split();
     word = parts[0];
@@ -38,8 +57,6 @@ for line in f.readlines():
         plant_vector = np.array([float(i) for i in parts[1:]])
         break;
         #print (plant_vector);
-    if(i == vocab_size):
-        break;
 if plant_vector is None:
     print("target word not found.");
     exit();
@@ -71,7 +88,9 @@ def calculate_cosine_similarity_between(vec_a, vec_b):
     A dot B = |A||B|cosine(theta)
     return cosine(theta)
     '''
-    
+    if(len(vec_a) != len(vec_b)):
+        print("Length of Vector A and Vector B are not equal \n ");
+        return -1;
     cos = np.dot(vec_a, vec_b) / (np.linalg.norm(vec_a) * np.linalg.norm(vec_b))
     return cos;
     
@@ -114,7 +133,7 @@ def display_current_order():
     
 i = -1;
 f = open(source, 'r');
-for line in f.readlines():
+for line in f:
     i = i + 1;
     if(i == 0): 
         continue;
@@ -130,6 +149,11 @@ for line in f.readlines():
     this_sim = calculate_cosine_similarity_between(this_vector, plant_vector);
     #print(this_word.ljust(10), " : ", this_sim);
     
+    if(this_sim == -1):
+        print(this_vector);
+        print(this_word);
+        continue;
+    
     min_similarity = ordered_distances[n-1];
     #print(min_similarity);
     #print(this_sim);
@@ -141,6 +165,14 @@ for line in f.readlines():
         print ("\nOrder by word ", i , ":");
         display_current_order();
         
-
+    if(i == vocab_size):
+        break;
 print ("\nOrder by word ", i , ":");
 display_current_order();
+print(i);
+if(output_path_mod is not None): 
+    f = open("results/" + output_path_mod + "_" + target_word + ".txt", 'w+');
+    for i in range(0,n):
+        string = ordered_words[i].ljust(20) + " : " + str(ordered_distances[i]); 
+        f.write(string+'\n');  # python will convert \n to os.linesep
+    f.close()  # you can omit in most cases as the destructor will call it

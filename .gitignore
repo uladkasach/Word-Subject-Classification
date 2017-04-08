@@ -1,5 +1,6 @@
 *.csv
 *.txt
 *.text
+*.bin
 __pycache__
 ./NLP/w2v/embed_analysis/GoogleNews-vectors-negative300.txt

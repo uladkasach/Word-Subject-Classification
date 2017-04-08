@@ -7,14 +7,12 @@ import sys;
 ## HP
 ###################################
 load_limit = None;
-
-
-
+input_mod = sys.argv[1];
 
 ####################################
 ## Load Dictionary
 ####################################
-source = 'dictionary.csv';
+source = 'dictionary_'+input_mod+'.csv';
 index = -1;
 the_dictionary = [];
 f = open(source, 'r');
@@ -33,7 +31,7 @@ f.close() # not indented, this happens after the loop
 #######################################
 ## Load Assignments
 #######################################
-source = 'assignments.csv';
+source = 'assignments_'+input_mod+'.csv';
 assignments = np.loadtxt(source, dtype = 'float', delimiter = ',');
 if(load_limit != None):
     assignments = assignments[0:load_limit + 1];
@@ -62,6 +60,6 @@ for key, item in grouped_df:
 ######################################
 #name_delta = sys.argv[1];
 name_delta = input("Enter a name delta if you'd like save the data\n -->");
-f = open('clusters_'+name_delta+'.csv', 'w+');
+f = open('clusters/clusters_'+name_delta+'.csv', 'w+');
 f.write(the_string);
 f.close();

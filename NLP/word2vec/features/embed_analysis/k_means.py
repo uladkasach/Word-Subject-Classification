@@ -27,14 +27,20 @@ def build_word_vector_matrix(vector_file, n_words):
         '''Read a GloVe array from sys.argv[1] and return its vectors and labels as arrays'''
         numpy_arrays = []
         labels_array = []
-        with codecs.open(vector_file, 'r', 'utf-8') as f:
+        with open(vector_file, 'r') as f:
                 for c, r in enumerate(f):
-                        sr = r.split()
-                        labels_array.append(sr[0])
-                        numpy_arrays.append( numpy.array([float(i) for i in sr[1:]]) )
+                    if(c == 0):
+                        continue;
+                    #print(r);
+                    #exit();
+                    sr = r.split()
+                    labels_array.append(sr[0])
+                    numpy_arrays.append( numpy.array([float(i) for i in sr[1:]]) )
 
-                        if c == n_words:
-                                return numpy.array( numpy_arrays ), labels_array
+                    if c == n_words:
+                        return numpy.array( numpy_arrays ), labels_array
+                    if c % 1000 == 0:
+                        print ("at word count " + str(c));
 
         return numpy.array( numpy_arrays ), labels_array
     
@@ -50,16 +56,19 @@ def find_word_clusters(labels_array, cluster_labels):
 if __name__ == "__main__":
     
         input_vector_file = sys.argv[1] # The Glove file to analyze (e.g. glove.6B.300d.txt)
-        n_words           = int(sys.argv[2]) # The number of lines to read from the input file
+        output_mod = sys.argv[2] # The Glove file to analyze (e.g. glove.6B.300d.txt)
+        n_words           = int(sys.argv[3]) # The number of lines to read from the input file
         #reduction_factor  = float(sys.argv[3]) # The desired amount of dimension reduction 
         #clusters_to_make  = int( n_words * reduction_factor ) # The number of clusters to make
-        clusters_to_make  = int( sys.argv[3] ) # The number of clusters to make
+        clusters_to_make  = int( sys.argv[4] ) # The number of clusters to make
         
         #input_vector_file = 'embeddings.csv';
         #n_words = 12000;
         #clusters_to_make = 100;
-        
+        print("building word vector matrix");
         df, labels_array  = build_word_vector_matrix(input_vector_file, n_words);
+        print(labels_array[0:10]);
+
         kmeans_model      = KMeans(init='k-means++', n_clusters=clusters_to_make, n_init=10, n_jobs=16, verbose=0);
         kmeans_model.fit(df)
         
@@ -75,10 +84,10 @@ if __name__ == "__main__":
         
         the_dictionary = labels_array;
         assignments = cluster_labels;
-        f = open('k_means_results/dictionary.csv', 'w+');
+        f = open("k_means_results/dictionary_" + output_mod + ".csv", 'w+');
         for word in the_dictionary:
             f.write(word+'\n');
         f.close();
         #np.savetxt("k_means_results/dictionary.csv", the_dictionary, delimiter=",");
         #np.savetxt("k_means_results/centroids.csv", centroids, delimiter=",");
-        numpy.savetxt("k_means_results/assignments.csv", assignments, delimiter=",");
+        numpy.savetxt("k_means_results/assignments_" + output_mod + ".csv", assignments, delimiter=",");
