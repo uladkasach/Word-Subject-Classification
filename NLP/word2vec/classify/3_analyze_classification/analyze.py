@@ -1,5 +1,6 @@
-import sys
+import sys;
 import numpy as np;
+import os;
 
 
 def main(delta_mod, classifier_dir_mod = 'nn', data_source_type = 'test'):
@@ -7,21 +8,24 @@ def main(delta_mod, classifier_dir_mod = 'nn', data_source_type = 'test'):
     RESULTS_POS_SOURCE = '../2_train_and_classify/'+classifier_dir_mod+'/results/'+delta_mod+'_'+data_source_type+'_pos.csv';
     RESULTS_NEG_SOURCE = '../2_train_and_classify/'+classifier_dir_mod+'/results/'+delta_mod+'_'+data_source_type+'_neg.csv';
 
-    FREQUENCIES_SOURCE = "../0_data_source/5.6m_basic_freq_table.csv";
-    print('Using Frequency Source ', FREQUENCIES_SOURCE);
+    #FREQUENCIES_SOURCE = "../0_data_source/5.6m_basic_freq_table.csv";
+    FREQUENCIES_SOURCE = None;
+    if(FREQUENCIES_SOURCE is not None):
+        print('Using Frequency Source ', FREQUENCIES_SOURCE);
 
     #######################################
     ## Load Frequent Words
     #######################################
-    frequency_dict = dict();
-    f = open(FREQUENCIES_SOURCE, 'r');
-    for line in f.readlines():
-        parts = line.rstrip().split(",");
-        #print(parts);
-        word = parts[0];
-        freq = int(parts[1]);
-        frequency_dict[word] = freq;
-    f.close();
+    if(FREQUENCIES_SOURCE is not None):
+        frequency_dict = dict();
+        f = open(FREQUENCIES_SOURCE, 'r');
+        for line in f.readlines():
+            parts = line.rstrip().split(",");
+            #print(parts);
+            word = parts[0];
+            freq = int(parts[1]);
+            frequency_dict[word] = freq;
+        f.close();
 
     def parse_results_from(results_source):
         TP = [];
@@ -34,7 +38,7 @@ def main(delta_mod, classifier_dir_mod = 'nn', data_source_type = 'test'):
             i += 1;
             if(i == 0):
                 continue;
-            parts = line.rstrip().split(",");
+            parts = line.rstrip().split(" ");
             #print(parts);
             true_y = int(parts[0]);
             pred_y = int(parts[1]);
@@ -44,8 +48,10 @@ def main(delta_mod, classifier_dir_mod = 'nn', data_source_type = 'test'):
             else:
                 confidence = parts[4];
             confidence = float(confidence);
-            freq = frequency_dict[word];
-
+            if(FREQUENCIES_SOURCE is not None):
+                freq = frequency_dict[word];
+            else:
+                freq = -1;
             data = [true_y, pred_y, word, freq, confidence];
             #print(data);
 
@@ -118,7 +124,14 @@ def main(delta_mod, classifier_dir_mod = 'nn', data_source_type = 'test'):
         data_string += str(data[0]) + "," + str(data[1]) + "," + data[2] + "," + str(data[3]) + "," + str(data[4]) + "\n";
 
 
-
+    # Ensure directory exists
+    directory = "results";
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    directory = "results/" + data_source_type;
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    # write results
     myfile = open("results/"+data_source_type+"/"+delta_mod+"_result.csv", "w+");
     myfile.write(data_string);
     myfile.close();
@@ -126,11 +139,6 @@ def main(delta_mod, classifier_dir_mod = 'nn', data_source_type = 'test'):
 
     
 if __name__ == "__main__":
-    #delta_mod = "PW1";
-    if(sys.argv[1] == "-h"):
-        print (" delta_mod, classifier_dir_mod, data_source_type, e.g., <dm> nn test");
-        exit();
-    
     #########################################################
     ## Read Arguments
     #########################################################

@@ -2,6 +2,7 @@ from sklearn.ensemble import RandomForestClassifier;
 import pandas as pd;
 import numpy as np;
 import sys;
+import os;
 
 ## cd /var/www/git/Plants/NLP/word2vec/classify/2_train_and_classify/random_forest/; python3 classifier.py name:test source_mod:SMOTE_15 rtrue:10
 
@@ -34,6 +35,7 @@ for i in range(len(sys.argv)):
 ## Set Default Data
 #########################################################
 NJOBS = 2;
+classifier_choice = "rf";
 class_weight = dict();
 class_weight[0] = 1;
 class_weight[1] = 1;
@@ -72,7 +74,7 @@ def load_data_set(data_source_path):
     ## Grab and parse data
 
     for index, line in enumerate(source_lines):
-        parts = line.rstrip().split(",");
+        parts = line.rstrip().split(" ");
         if(parts[0] == 'label'):
             continue; # header row
         this_label = int(float(parts[0]));
@@ -136,12 +138,15 @@ def generate_predictions(classifier, features, labels, keys):
     classification_df["pred_1"] = predictions[:, 1];
     return classification_df;
 def record_predictions(classification_df, delta_mod, split_mod):
+    directory = "results";
+    if not os.path.exists(directory):
+        os.makedirs(directory)
     filename = delta_mod;
     file_name = "results/"+filename + '_'+split_mod+'_neg.csv';
-    classification_df.sort_values(['pred_0'], ascending=[False], inplace=False).to_csv(file_name, index=False);
+    classification_df.sort_values(['pred_0'], ascending=[False], inplace=False).to_csv(file_name, index=False, sep=' ');
     print(file_name + ', done!');
     file_name = "results/"+filename + '_'+split_mod+'_pos.csv';
-    classification_df.sort_values(['pred_1'], ascending=[False], inplace=False).to_csv(file_name, index=False);
+    classification_df.sort_values(['pred_1'], ascending=[False], inplace=False).to_csv(file_name, index=False, sep=' ');
     print(file_name + ', done!');
 #################################
 ## Classify and record predicitons

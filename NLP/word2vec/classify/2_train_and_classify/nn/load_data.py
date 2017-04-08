@@ -79,7 +79,7 @@ def return_regular_batch(data_source_path, batch_size):
             
         line = source_lines[i];
         
-        parts = line.rstrip().split(",");
+        parts = line.rstrip().split(" ");
         if(parts[0] == 'label'):
             continue; # header row
         this_label = int(float(parts[0]));

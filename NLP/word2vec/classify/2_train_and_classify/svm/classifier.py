@@ -2,6 +2,7 @@ from sklearn.svm import SVC
 import pandas as pd;
 import numpy as np;
 import sys;
+import os;
 
 
 ##########################################################################
@@ -31,14 +32,15 @@ for i in range(len(sys.argv)):
 #########################################################
 ## Set Default Data
 #########################################################
-acceptable_kernels = ['linear', 'RBF', 'poly', 'sigmoid'];
+acceptable_kernels = ['linear', 'RBF', 'rbf', 'poly', 'sigmoid'];
+classifier_choice = "svm";
 NJOBS = 2;
 class_weight = dict();
 class_weight[0] = 1;
 class_weight[1] = 1;
 regularization_parameter = 1; # SVM regularization parameter
 dev_mode = 'false';
-KERNEL = 'linear';
+KERNEL = 'rbf';
 degree = 3;
 gamma = 'auto';
 verbose = False;
@@ -85,7 +87,7 @@ def load_data_set(data_source_path):
     ## Grab and parse data
 
     for index, line in enumerate(source_lines):
-        parts = line.rstrip().split(",");
+        parts = line.rstrip().split(" ");
         if(parts[0] == 'label'):
             continue; # header row
         this_label = int(float(parts[0]));
@@ -178,12 +180,15 @@ def generate_predictions(classifier, features, labels, keys):
     classification_df["pred_1"] = predictions[:, 1];
     return classification_df;
 def record_predictions(classification_df, delta_mod, split_mod):
+    directory = "results";
+    if not os.path.exists(directory):
+        os.makedirs(directory)
     filename = delta_mod;
     file_name = "results/"+filename + '_'+split_mod+'_neg.csv';
-    classification_df.sort_values(['pred_0'], ascending=[False], inplace=False).to_csv(file_name, index=False);
+    classification_df.sort_values(['pred_0'], ascending=[False], inplace=False).to_csv(file_name, index=False, sep=' ');
     print(file_name + ', done!');
     file_name = "results/"+filename + '_'+split_mod+'_pos.csv';
-    classification_df.sort_values(['pred_1'], ascending=[False], inplace=False).to_csv(file_name, index=False);
+    classification_df.sort_values(['pred_1'], ascending=[False], inplace=False).to_csv(file_name, index=False, sep=' ');
     print(file_name + ', done!');
 #################################
 ## Classify and record predicitons

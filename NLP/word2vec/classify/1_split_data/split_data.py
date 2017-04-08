@@ -17,16 +17,15 @@ import pandas as pd;
 import split_support;
 
 
-
 #########################################################
 ## Read Arguments
 #########################################################
 if(sys.argv[1] == "-h"):
-    print ("name rtrue min_freq batch_size learning_rate n_hidden_1 n_hidden_2 epochs");
+    print ("python3 split_data.py name:test_split split_ratio:70/30 sampling:random dev_mode_data_limit:3000");
     exit();
 
 arguments = dict();
-acceptable_arguments = ['random', 'min_freq', 'embedding_source', 'freq_source', 'label_source', 'name', 'split_ratio', 'sampling', 'sampling_multiplier', 'SM', 'dev_mode_data_limit', 'dist'];
+acceptable_arguments = ['min_freq', 'embedding_source', 'freq_source', 'label_source', 'name', 'split_ratio', 'sampling', 'sampling_multiplier', 'SM', 'dev_mode_data_limit', 'dist'];
 for i in range(len(sys.argv)):
     if(i == 0):
         continue;
@@ -47,12 +46,19 @@ OUTPUT_ROOT = 'results/';
 sampling_choices = ['random', 'over', 'under', 'SMOTE', 'SMOTE_NORM'];
 sampling = 'random';
 min_freq = 10;
-embedding_source = '../0_data_source/embeddings_5.6m_basic.csv';
-freq_source = '../0_data_source/5.6m_basic_freq_table.csv';
-label_source = '../../features/label_words/plant_words.txt';
 split_ratio = '70/30';
-DEV_MODE_DATA_LIMIT = False;
+DEV_MODE_DATA_LIMIT = None;
 distance_measure = 'SSE'; # used for SMOTE 
+##
+#embedding_source = '../0_data_source/embeddings_5.6m_basic.csv';
+#freq_source = '../0_data_source/5.6m_basic_freq_table.csv';
+#label_source = '../../features/label_words/plant_words.txt';
+#skiprows = 0;
+embedding_source = '../0_data_source/GoogleNews-vectors-negative300.csv';
+freq_source = None;
+label_source = '../../features/label_words/google_plant_words.txt';
+skiprows = 1;
+
 
 #########################################################
 ## Update data to arguments
@@ -119,6 +125,9 @@ def retreive_words(filepath):
     f.close();
     return keys;
 def retreive_frequent_words(frequency_table_path, frequency_threshold):
+    if(freq_source is None):
+        print("Frequent words not found. Not Frequency into acount.");
+        return None; 
     min_word_frequency_threshold = int(frequency_threshold);
     frequent_words = [];
     f = open(frequency_table_path, 'r');
@@ -133,13 +142,13 @@ def retreive_frequent_words(frequency_table_path, frequency_threshold):
     print(" -- Words frequent enough in total: ", len(frequent_words), '\n');
     return frequent_words;
 def retrieve_embeddings(path):
-    df = pd.read_csv(path, sep = ' ', header=None);
+    df = pd.read_csv(path, sep = ' ', header=None, skiprows = skiprows, nrows = DEV_MODE_DATA_LIMIT);
     #print( df.head() );
     return df;
 def label_embedding(this_word):
     global true_words;
     global frequent_words;
-    if(this_word not in frequent_words):
+    if(frequent_words is not None and this_word not in frequent_words):
         return -1;
     elif(this_word in true_words):
         return 1;
@@ -150,14 +159,12 @@ print("Loading data...");
 true_words = retreive_words(label_source);
 frequent_words = retreive_frequent_words(freq_source, min_freq);
 embeddings_df = retrieve_embeddings(embedding_source);
-if(DEV_MODE_DATA_LIMIT != False):
-    embeddings_df = embeddings_df[0:DEV_MODE_DATA_LIMIT];
 print("Labling and cleaning embeddings...");
 embeddings_df['label'] = embeddings_df.apply(lambda row: label_embedding(row[0]), axis=1); ## label rows
 cols = embeddings_df.columns.tolist();
 embeddings_df = embeddings_df[cols[-1:] + cols[:-1]]; ## Move label to first column
 #print(embeddings_df.shape);
-embeddings_df = embeddings_df[embeddings_df['label'] != -1]; ## Remove non_frequent words. Note - this needs to happen so that words_total_size can be calculated
+embeddings_df = embeddings_df[embeddings_df['label'] != -1]; ## Remove non_frequent words. Note - this needs to happen so that words_total_size can be calculated; frequent_words
 #print(embeddings_df.shape);
 print("Shuffling embeddings...");
 embeddings_df = embeddings_df.reindex(np.random.permutation(embeddings_df.index)); ## Shuffle rows in dataframe
@@ -272,5 +279,5 @@ print(train_set[['label', 0]].head());
 #########################################################
 ## Record Results
 #########################################################
-test_set.to_csv(path_or_buf=OUTPUT_ROOT+delta_mod+"_test.csv", sep=',', index = False);
-train_set.to_csv(path_or_buf=OUTPUT_ROOT+delta_mod+"_train.csv", sep=',', index = False);
+test_set.to_csv(path_or_buf=OUTPUT_ROOT+delta_mod+"_test.csv", sep=' ', index = False);
+train_set.to_csv(path_or_buf=OUTPUT_ROOT+delta_mod+"_train.csv", sep=' ', index = False);
