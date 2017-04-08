@@ -40,8 +40,8 @@ print('Loading all relevant results...');
 ## Load All Results
 #######################################
 full_data = [];
-wanted_traits = ["delta_mod", "%TP", "%FP", "KERNEL", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "classifier_choice", "final_cost_found"]
-convert_to_float = [0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1]
+wanted_traits = ["delta_mod", "%TP", "%FP", "KERNEL", "degree", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "classifier_choice", "final_cost_found"]
+convert_to_float = [0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1]
 repeat_considered = False; ## If repeats exist, we'll need to get the lowest cost repeat
 for this_file in result_files:
     ####
@@ -80,9 +80,9 @@ for this_file in result_files:
 if(FORCE_SHOW_ALL_REPEATS):
     repeat_considered = False;
 if(repeat_considered):
-    the_columns = ['delta_mod', 'base', '%TP', '%FP', 'goodness', "KERNEL", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "classifier_choice", "final_cost_found"];
+    the_columns = ['delta_mod', 'base', '%TP', '%FP', 'goodness', "KERNEL", "degree", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "classifier_choice", "final_cost_found"];
 else:
-    the_columns = ['delta_mod', '%TP', '%FP', 'goodness', "KERNEL", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "classifier_choice", "final_cost_found"];
+    the_columns = ['delta_mod', '%TP', '%FP', 'goodness', "KERNEL", "degree", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "classifier_choice", "final_cost_found"];
 results = pd.DataFrame(full_data, columns = the_columns);
 if(repeat_considered):
     if( not (np.isnan(results['final_cost_found'].tolist()[0])) ): ## if final_cost exists (does not for rf)
