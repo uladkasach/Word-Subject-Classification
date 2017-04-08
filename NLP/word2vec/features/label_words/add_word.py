@@ -91,7 +91,7 @@ if __name__ == "__main__":
     while index != loop_limit:
         index += 1;
         if(loop_limit == -1):
-            target_word = input("target word -->").rstrip().lower()
+            target_word = input("target word -->").rstrip();##.lower()
         if(str(target_word) == str("count")):
             print (return_word_count());
             continue;
