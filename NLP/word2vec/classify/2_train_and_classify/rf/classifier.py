@@ -34,7 +34,7 @@ for i in range(len(sys.argv)):
 #########################################################
 ## Set Default Data
 #########################################################
-NJOBS = 2;
+NJOBS = 1;
 classifier_choice = "rf";
 class_weight = dict();
 class_weight[0] = 1;

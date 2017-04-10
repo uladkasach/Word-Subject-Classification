@@ -50,12 +50,12 @@ classification_arguments.append({
 })
 classification_arguments.append({
     "classifier_choice" : ["svm"],
-    "kernel" : ["poly"],
-    "degree" : [2, 3],
+    "kernel" : ["rbf"],
 })
 classification_arguments.append({
     "classifier_choice" : ["svm"],
-    "kernel" : ["rbf"],
+    "kernel" : ["poly"],
+    "degree" : [2, 3],
 })
 classification_arguments.append({
     "classifier_choice" : ["svm"],

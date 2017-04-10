@@ -34,7 +34,7 @@ for i in range(len(sys.argv)):
 #########################################################
 acceptable_kernels = ['linear', 'RBF', 'rbf', 'poly', 'sigmoid'];
 classifier_choice = "svm";
-NJOBS = 2;
+NJOBS = 1;
 class_weight = dict();
 class_weight[0] = 1;
 class_weight[1] = 1;
