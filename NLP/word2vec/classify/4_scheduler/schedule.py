@@ -97,7 +97,7 @@ if __name__ == '__main__':
         print ("delta_mod classifier_dir_mod data_source_type");
         exit();
     arguments = dict();
-    acceptable_arguments = ['set_title',  'repeats_per_set', 'repeats_per_split_set', 'seconds_per_chain', 'parallel', 'dev_mode'];
+    acceptable_arguments = ['set_title',  'repeats_per_set', 'repeats_per_split_set', 'seconds_per_chain', 'parallel', 'split_parallel', 'dev_mode'];
     for i in range(len(sys.argv)):
         if(i == 0):
             continue;
