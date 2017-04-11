@@ -132,7 +132,11 @@ if __name__ == '__main__':
     if('seconds_per_chain' in arguments): seconds_per_chain = int(arguments['seconds_per_chain']);
     if('parallel' in arguments): PARALLEL_PROCESSES = int(arguments['parallel']);
     if('dev_mode' in arguments): dev_mode = bool(arguments['dev_mode']);
-    
+    if('split_parallel' in arguments): 
+        SPLIT_PARALLEL_PROCESSES = int(arguments['split_parallel']);
+    else:
+        SPLIT_PARALLEL_PROCESSES = PARALLEL_PROCESSES;
+        
     ###########################################################
     ## Ensure that dynamic arguments are properly initialized
     ###########################################################
@@ -211,7 +215,7 @@ if __name__ == '__main__':
     if(dev_mode == 'false'):
         if(split_command_chains != []):
             print('Running split_command chains...');
-            parallel_queue.begin_parallel_commands(split_command_chains, PARALLEL_PROCESSES);
+            parallel_queue.begin_parallel_commands(split_command_chains, SPLIT_PARALLEL_PROCESSES);
         print('Running classification and analysis chains...');
         parallel_queue.begin_parallel_commands(cAndA_command_chains, PARALLEL_PROCESSES);
     else:
