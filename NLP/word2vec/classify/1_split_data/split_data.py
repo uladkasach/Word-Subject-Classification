@@ -142,7 +142,90 @@ def retreive_frequent_words(frequency_table_path, frequency_threshold):
     print(" -- Words frequent enough in total: ", len(frequent_words), '\n');
     return frequent_words;
 def retrieve_embeddings(path):
-    df = pd.read_csv(path, sep = ' ', header=None, skiprows = skiprows, nrows = DEV_MODE_DATA_LIMIT);
+    #df = pd.read_csv(path, sep = ' ', header=None, skiprows = skiprows, nrows = DEV_MODE_DATA_LIMIT);
+    
+    
+    #########################
+    ## Load Data into Dataframe
+    #########################
+    table = [];
+    print("Retreiving Embeddings .........");
+    f = open(path, 'r');
+    for index, line in enumerate(f):
+        parts = line.rstrip().split(" ");
+        #print(parts);
+        if(index == 0): continue; ## Skip header
+        
+        this_word = parts[0];
+        this_vector = [float(j) for j in parts[1:]];
+        this_row = [this_word];
+        this_row.extend(this_vector);
+        
+        table.append(this_row);
+        
+        if(index % 10000 == 0):
+            print(index);
+            print(this_word);
+        
+        if(index == DEV_MODE_DATA_LIMIT):
+            print("found dev limit of embeddings");
+            break;
+            
+    f.close();
+    
+    #table = [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11]]; # Chunking test table
+    ###########################
+    ## Chunk the list into max of 250k rows each
+    ###########################
+    print("chunking embeddings table for dataframe loading");
+    total_length = len(table);
+    chunks = [];
+    #chunk_size = (total_length + 10) / 3;
+    #chunk_size = int(chunk_size);
+    chunk_size = 250000;
+    
+    #print(total_length);
+    #print("chunk_size", chunk_size);
+    the_range = (range(int(np.ceil(total_length / chunk_size))));
+    #print(the_range);
+    last_included = 0;
+    for i in the_range:
+        start = last_included;
+        end = start + chunk_size;
+        last_included = end;
+        this_chunk = table[start:end];
+        chunks.append(this_chunk);
+        #print("start : ", start);
+        #print("end : ", end);
+        #print("len -> ", len(this_chunk));
+        #print(this_chunk);
+        #print(" ");
+    del table;
+    
+    
+    print("loading chunks into dataframe...");
+    ##########################
+    ## Load each chunk into dataframe, removing chunk from memory after the load
+    ##########################
+    df = None;
+    for index, chunk in enumerate(chunks):
+        print("Loading chunk ", index);
+        this_df = pd.DataFrame(chunk);
+        del chunk;
+        if(df is None):
+            df = this_df;
+        else:
+            df = pd.concat([df, this_df], ignore_index=True);
+            
+    print(df);
+    del chunks;
+    
+    ##print(len(table));
+    print("Done loading embeddings ..........");
+    
+    
+
+    
     #print( df.head() );
     return df;
 def label_embedding(this_word):
