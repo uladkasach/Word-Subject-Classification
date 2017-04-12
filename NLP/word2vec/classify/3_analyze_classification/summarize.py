@@ -5,6 +5,10 @@
 ## List all of the data in order desc (TP + (1-FP)) (save in summaries)
 ##############################
 
+'''
+cd /var/www/git/Plants/NLP/word2vec/classify/3_analyze_classification/; python3 summarize.py test_summary
+'''
+
 from os import listdir
 from os.path import isfile, join
 import numpy as np;
@@ -40,8 +44,8 @@ print('Loading all relevant results...');
 ## Load All Results
 #######################################
 full_data = [];
-wanted_traits = ["delta_mod", "%TP", "%FP", "KERNEL", "degree", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "classifier_choice", "final_cost_found"]
-convert_to_float = [0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1]
+wanted_traits = ["delta_mod", "%TP", "%FP",  "TP", "FP", "KERNEL", "degree", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "classifier_choice", "final_cost_found"]
+convert_to_float = [0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1]
 repeat_considered = False; ## If repeats exist, we'll need to get the lowest cost repeat
 for this_file in result_files:
     ####
@@ -75,14 +79,16 @@ for this_file in result_files:
                 break;
     #print(this_file);
     #print(data_row);
-    data_row['goodness'] = data_row['%TP'] - data_row['%FP'];
+    
+    #data_row['goodness'] = data_row['%TP'] - data_row['%FP'];
+    data_row['goodness'] = data_row['TP'] / (data_row['TP'] + data_row['FP'] + 1);
     full_data.append(data_row);
 if(FORCE_SHOW_ALL_REPEATS):
     repeat_considered = False;
 if(repeat_considered):
-    the_columns = ['delta_mod', 'base', '%TP', '%FP', 'goodness', "KERNEL", "degree", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "classifier_choice", "final_cost_found"];
+    the_columns = ['delta_mod', 'base', '%TP', '%FP', "TP", "FP", 'goodness', "KERNEL", "degree", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "classifier_choice", "final_cost_found"];
 else:
-    the_columns = ['delta_mod', '%TP', '%FP', 'goodness', "KERNEL", "degree", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "classifier_choice", "final_cost_found"];
+    the_columns = ['delta_mod', '%TP', '%FP', "TP", "FP", 'goodness', "KERNEL", "degree", "learning_rate", "n_hidden_1", "n_hidden_2", "rtrue", "source_mod", "classifier_choice", "final_cost_found"];
 results = pd.DataFrame(full_data, columns = the_columns);
 if(repeat_considered):
     if( not (np.isnan(results['final_cost_found'].tolist()[0])) ): ## if final_cost exists (does not for rf)
@@ -115,5 +121,23 @@ plt.scatter(x_ROC, y_ROC, c=gradient_value)
 plt.plot(x_ROC[0], y_ROC[0], 'ro');
 plt.ylabel('%TP')
 plt.xlabel('%FP')
-plt.savefig("summaries/"+SUMMARY_DELTA_MOD+".png")
-plt.show()
+plt.savefig("summaries/"+SUMMARY_DELTA_MOD+"_ROC.png")
+#plt.show()
+
+## Clear graph
+plt.gcf().clear()
+#######################################
+## Plot the graph
+#######################################
+x_ROC = results["%TP"].tolist();
+y_ROC = results["goodness"].tolist();
+gradient_value = results["goodness"].tolist();
+#print(x_ROC);
+#plt.plot(x_ROC, y_ROC)
+plt.scatter(x_ROC, y_ROC, c=gradient_value)
+#plt.gray()
+plt.plot(x_ROC[0], y_ROC[0], 'ro');
+plt.ylabel('%TP')
+plt.xlabel('%FP')
+plt.savefig("summaries/"+SUMMARY_DELTA_MOD+"_PR.png")
+#plt.show()
