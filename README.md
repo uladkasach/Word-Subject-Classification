@@ -18,7 +18,7 @@ Goal:
                 - Example:
                     - The following code will create 6 train/test splits of data and run 3 classifiers with, for the example of the neural net, 250 (1x2x5x5x5) hyperparameter sets on each train/test split data. 
                     - Note, this scheduler takes a 'parallel' argument which enables how ever many classifications as desired to run simultaniously untill completion
-                    ''' 
+                    ```
                         ###########################
                         ## Add split arguments - the splits will be generated and all will be used for each classification_argument set
                         ###########################
@@ -49,7 +49,7 @@ Goal:
                             "classifier_choice" : ["svm"],
                             "kernel" : ["linear"],
                         })
-                    '''
+                    ```
     
     - Starting with a subject of "plants" as in "houseplants", "gardening", etc.
     

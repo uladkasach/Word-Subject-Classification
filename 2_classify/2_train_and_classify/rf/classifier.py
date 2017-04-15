@@ -4,7 +4,7 @@ import numpy as np;
 import sys;
 import os;
 
-## cd /var/www/git/Plants/NLP/word2vec/classify/2_train_and_classify/random_forest/; python3 classifier.py name:test source_mod:SMOTE_15 rtrue:10
+## cd /var/www/git/NLP/SubjectWordClassification/2_classify/2_train_and_classify/random_forest/; python3 classifier.py name:test source_mod:SMOTE_15 rtrue:10
 
 
 ##########################################################################

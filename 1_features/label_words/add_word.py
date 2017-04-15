@@ -3,7 +3,7 @@ import sys
 
 from pathlib import Path
 '''
-cd /var/www/git/Plants/NLP/word2vec/features/label_words
+cd /var/www/git/NLP/SubjectWordClassification/1_features/label_words
 python3 add_word.py plant_words.txt 
 '''
 

@@ -87,7 +87,7 @@ if __name__ == '__main__':
     
     
     '''
-    cd /var/www/git/Plants/NLP/word2vec/classify/4_scheduler/; python3 schedule.py seconds_per_chain:180 parallel:2 dev_mode:true
+    cd /var/www/git/NLP/SubjectWordClassification/2_classify/4_scheduler/; python3 schedule.py seconds_per_chain:180 parallel:2 dev_mode:true
     '''
 
     #########################################################
@@ -154,7 +154,7 @@ if __name__ == '__main__':
     split_command_chains = [];
     if(not hasattr(dynamic, 'source_mod') or dynamic.source_mod is None): ## Split arguments dont need to be set if split_source is defined
         print("\n Source_mod not defined in split arguments, generating split data commaand chains...");
-        split_base = "cd /var/www/git/Plants/NLP/word2vec/classify/1_split_data; python3 split_data.py "; 
+        split_base = "cd /var/www/git/NLP/SubjectWordClassification/2_classify/1_split_data; python3 split_data.py "; 
         split_enumerations = [];
         split_names = [];
         for argument_set_index, argument_set in enumerate(dynamic.split_arguments):
@@ -183,8 +183,8 @@ if __name__ == '__main__':
         argument_set["source_mod"] = dynamic.source_mod;
         ## Handle classifier_choice 
         classifier_choice = argument_set["classifier_choice"][0];
-        this_classify_base = "cd /var/www/git/Plants/NLP/word2vec/classify/2_train_and_classify/"+classifier_choice+"/&& python3 classifier.py "; 
-        this_analyze_base = "cd /var/www/git/Plants/NLP/word2vec/classify/3_analyze_classification/&& python3 analyze.py classifier_dir_mod:"+classifier_choice+" ";
+        this_classify_base = "cd /var/www/git/NLP/SubjectWordClassification/2_classify/2_train_and_classify/"+classifier_choice+"/&& python3 classifier.py "; 
+        this_analyze_base = "cd /var/www/git/NLP/SubjectWordClassification/2_classify/3_analyze_classification/&& python3 analyze.py classifier_dir_mod:"+classifier_choice+" ";
         these_classification_enumerations, _ = recursive_list_enumerator(argument_set);
         these_cAndA_command_chains = generate_classify_and_analyze_command_chains(these_classification_enumerations, this_classify_base, this_analyze_base, repeats_per_set, set_title = argument_set_title );
         cAndA_command_chains.extend(these_cAndA_command_chains);

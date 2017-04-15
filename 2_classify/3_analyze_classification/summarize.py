@@ -6,7 +6,7 @@
 ##############################
 
 '''
-cd /var/www/git/Plants/NLP/word2vec/classify/3_analyze_classification/; python3 summarize.py test_summary
+cd /var/www/git/NLP/SubjectWordClassification/2_classify/3_analyze_classification/; python3 summarize.py test_summary
 '''
 
 from os import listdir
