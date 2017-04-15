@@ -45,6 +45,8 @@ degree = 3;
 gamma = 'auto';
 verbose = False;
 rtrue = 1; # for hyper parameter output
+save_training = False;
+    
 #########################################################
 ## Update data to arguments
 #########################################################
@@ -61,6 +63,7 @@ else:
     print("source_mod is required. Error.");
     exit();
     
+if('save_training' in arguments and arguments['save_training'] == "true"): save_training = True;
 if('classifier_choice' in arguments):  classifier_choice = (arguments['classifier_choice']);
 if('rtrue' in arguments): class_weight[1] = int(arguments['rtrue']);
 if('rtrue' in arguments): rtrue = int(arguments['rtrue']); # for hyper parameter output
@@ -197,9 +200,10 @@ print("\nClassifying test data...");
 test_classification = generate_predictions(classifier, test_features, test_labels, test_keys);
 record_predictions(test_classification, delta_mod, "test");
 
-print("\nClassifying training data...");
-train_classification = generate_predictions(classifier, train_features, train_labels, train_keys);
-record_predictions(train_classification, delta_mod, "train");
+if(save_training):
+    print("\nClassifying training data...");
+    train_classification = generate_predictions(classifier, train_features, train_labels, train_keys);
+    record_predictions(train_classification, delta_mod, "train");
 
 
 #################################

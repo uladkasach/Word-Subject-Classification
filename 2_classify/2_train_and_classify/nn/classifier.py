@@ -47,6 +47,7 @@ batch_size = 2000;
 learning_rate = 0.05;
 n_hidden_1 = 30 # 1st layer number of features
 n_hidden_2 = 10 # 2nd layer number of features
+save_training = False;
 
 #########################################################
 ## Update data to arguments
@@ -70,7 +71,7 @@ if('n_hidden_1' in arguments): n_hidden_1 = int(arguments['n_hidden_1']);
 if('n_hidden_2' in arguments): n_hidden_2 = int(arguments['n_hidden_2']);
 if('epochs' in arguments): EPOCHS = int(arguments['epochs']);
 if('classifier_choice' in arguments):  classifier_choice = (arguments['classifier_choice']);
-    
+if('save_training' in arguments and arguments['save_training'] == "true"): save_training = True;
     
     
     
@@ -244,23 +245,24 @@ with tf.Session() as sess:
     #################################################################
     ## Classify and Record
     #################################################################
-    #########
-    ## Training Batch
-    #########
-    batch_feature, batch_label, batch_key = load_data.return_regular_batch([TRAIN_SOURCE], -1);
-    print(batch_feature.shape);
-    print(batch_label.shape);
-    print(len(batch_key));
-    predictions = (sess.run(perc_pred, feed_dict={x: batch_feature}))
-    max_predictions = (sess.run(max_pred, feed_dict={x: batch_feature}))
-    classification_df = pd.DataFrame();
-    classification_df["is_plant"] = np.array((batch_label[:, 1]), 'int');
-    classification_df["pred_plant"] = max_predictions;
-    classification_df["key"] = batch_key;
-    classification_df["pred_0"] = predictions[:, 0];
-    classification_df["pred_1"] = predictions[:, 1];
-    save_data.save_classification(classification_df, delta_mod = delta_mod+'_train');
-    
+    if(save_training):
+        #########
+        ## Training Batch
+        #########
+        batch_feature, batch_label, batch_key = load_data.return_regular_batch([TRAIN_SOURCE], -1);
+        print(batch_feature.shape);
+        print(batch_label.shape);
+        print(len(batch_key));
+        predictions = (sess.run(perc_pred, feed_dict={x: batch_feature}))
+        max_predictions = (sess.run(max_pred, feed_dict={x: batch_feature}))
+        classification_df = pd.DataFrame();
+        classification_df["is_plant"] = np.array((batch_label[:, 1]), 'int');
+        classification_df["pred_plant"] = max_predictions;
+        classification_df["key"] = batch_key;
+        classification_df["pred_0"] = predictions[:, 0];
+        classification_df["pred_1"] = predictions[:, 1];
+        save_data.save_classification(classification_df, delta_mod = delta_mod+'_train');
+
     #########
     ## Testing Batch
     #########

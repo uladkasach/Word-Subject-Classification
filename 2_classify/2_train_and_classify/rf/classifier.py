@@ -40,6 +40,7 @@ class_weight = dict();
 class_weight[0] = 1;
 class_weight[1] = 1;
 rtrue = 1; # for hyper parameter output
+save_training = False;
 
 #########################################################
 ## Update data to arguments
@@ -60,6 +61,7 @@ if('classifier_choice' in arguments):  classifier_choice = (arguments['classifie
 if('njobs' in arguments): NJOBS = int(arguments['njobs']);
 if('rtrue' in arguments): class_weight[1] = int(arguments['rtrue']);
 if('rtrue' in arguments): rtrue = int(arguments['rtrue']); # for hyper parameter output
+if('save_training' in arguments and arguments['save_training'] == "true"): save_training = True;
     
 #############################################################
 ## Load Data
@@ -155,9 +157,10 @@ print("\nClassifying test data...");
 test_classification = generate_predictions(classifier, test_features, test_labels, test_keys);
 record_predictions(test_classification, delta_mod, "test");
 
-print("\nClassifying training data...");
-train_classification = generate_predictions(classifier, train_features, train_labels, train_keys);
-record_predictions(train_classification, delta_mod, "train");
+if(save_training):
+    print("\nClassifying training data...");
+    train_classification = generate_predictions(classifier, train_features, train_labels, train_keys);
+    record_predictions(train_classification, delta_mod, "train");
 
 
 #################################

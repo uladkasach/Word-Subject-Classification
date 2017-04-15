@@ -212,14 +212,14 @@ if __name__ == '__main__':
     ############################################
     ## Run queue if not in dev mode
     ############################################
+    f = open("dev_output.txt", 'w+')
+    for command in command_chains:
+        f.write(command+'\n');  # python will convert \n to os.linesep
+    f.close()  # you can omit in most cases as the destructor will call it
     if(dev_mode == 'false'):
         if(split_command_chains != []):
             print('Running split_command chains...');
             parallel_queue.begin_parallel_commands(split_command_chains, SPLIT_PARALLEL_PROCESSES);
         print('Running classification and analysis chains...');
         parallel_queue.begin_parallel_commands(cAndA_command_chains, PARALLEL_PROCESSES);
-    else:
-        f = open("dev_output.txt", 'w+')
-        for command in command_chains:
-            f.write(command+'\n');  # python will convert \n to os.linesep
-        f.close()  # you can omit in most cases as the destructor will call it
+    
