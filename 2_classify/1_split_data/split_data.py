@@ -56,7 +56,7 @@ distance_measure = 'SSE'; # used for SMOTE
 #skiprows = 0;
 embedding_source = '../0_data_source/GoogleNews-vectors-negative300.csv';
 freq_source = None;
-label_source = '../../features/label_words/google_plant_words.txt';
+label_source = '../../1_features/label_words/google_plant_words.txt';
 skiprows = 1;
 
 
@@ -362,5 +362,8 @@ print(train_set[['label', 0]].head());
 #########################################################
 ## Record Results
 #########################################################
+directory = "results";
+if not os.path.exists(directory):
+    os.makedirs(directory)
 test_set.to_csv(path_or_buf=OUTPUT_ROOT+delta_mod+"_test.csv", sep=' ', index = False);
 train_set.to_csv(path_or_buf=OUTPUT_ROOT+delta_mod+"_train.csv", sep=' ', index = False);
