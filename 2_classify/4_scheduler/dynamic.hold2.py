@@ -22,7 +22,7 @@ split_arguments.append({
 })
 split_arguments.append({
     "sampling" : ["under"],
-    "SM" : [0.9, 0.7, 0.5],
+    "SM" : [0.7, 0.9],
 })
 
 
@@ -32,8 +32,12 @@ split_arguments.append({
 
 ## ['name', 'source_mod', 'njobs', 'rtrue', 'dev_mode', 'kernel', 'gamma', 'degree', 'verbose', 'classifier_choice'];
 classification_arguments.append({
+    "classifier_choice" : ["knn"],
+    "n_neighbors" : [5, 15, 30, 50],
+})
+classification_arguments.append({
     "classifier_choice" : ["rf"],
-    "rtrue" : [1, 5, 10, 20, 30, 40, 50 ],
+    "rtrue" : [1, 25, 50 ],
 })
 classification_arguments.append({
     "classifier_choice" : ["nn"],
