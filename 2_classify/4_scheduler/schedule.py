@@ -42,7 +42,7 @@ def recursive_list_enumerator(data, string_so_far = None, name_string_so_far = N
     return these_strings, these_name_strings;
 
     
-def generate_classify_and_analyze_command_chains(enumerations, classify_base,  analyze_base, repeats_per_set, set_title = None, limit = -1):
+def generate_classify_and_analyze_command_chains(enumerations, classify_base,  analyze_base, remove_base, repeats_per_set, set_title = None, limit = -1):
     ###########################
     ## For each enumeration, build chain of commands required. (classify, analyze)
     ###########################
@@ -55,8 +55,10 @@ def generate_classify_and_analyze_command_chains(enumerations, classify_base,  a
             if(set_title is not None):
                 this_name = set_title + "_" + this_name;
             this_classify_command = classify_base + " name:" + this_name + " " + enum + "&& ";
-            this_analyze_command = analyze_base + " name:"+this_name + "; ";
-            this_command_full = this_classify_command + this_analyze_command;
+            this_analyze_command = analyze_base + " name:"+this_name + "&& ";
+            if(remove_base != ""):
+                this_remove_command = remove_base + " -name " + this_name + "\* -exec rm {} \;";
+            this_command_full = this_classify_command + this_analyze_command + this_remove_command;
             command_chains.append(this_command_full);
         if(index == limit -1):
             break;
@@ -185,8 +187,9 @@ if __name__ == '__main__':
         classifier_choice = argument_set["classifier_choice"][0];
         this_classify_base = "cd /var/www/git/NLP/Word-Subject-Classification/2_classify/2_train_and_classify/"+classifier_choice+"/&& python3 classifier.py "; 
         this_analyze_base = "cd /var/www/git/NLP/Word-Subject-Classification/2_classify/3_analyze_classification/&& python3 analyze.py classifier_dir_mod:"+classifier_choice+" ";
+        this_remove_base = "find /var/www/git/NLP/Word-Subject-Classification/2_classify/2_train_and_classify/"+classifier_choice+"/results/ -type f ";
         these_classification_enumerations, _ = recursive_list_enumerator(argument_set);
-        these_cAndA_command_chains = generate_classify_and_analyze_command_chains(these_classification_enumerations, this_classify_base, this_analyze_base, repeats_per_set, set_title = argument_set_title );
+        these_cAndA_command_chains = generate_classify_and_analyze_command_chains(these_classification_enumerations, this_classify_base, this_analyze_base, this_remove_base, repeats_per_set, set_title = argument_set_title );
         cAndA_command_chains.extend(these_cAndA_command_chains);
     print(cAndA_command_chains[0:2]);
     print("Number of classification and analysis command chains: ", len(cAndA_command_chains));
