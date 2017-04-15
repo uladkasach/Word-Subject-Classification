@@ -4,7 +4,7 @@ import os;
 
 '''
 acceptable_arguments = ['name', 'classifier_dir_mod', 'data_source_type'];
-cd /var/www/git/Plants/NLP/word2vec/classify/3_analyze_classification/; python3 analyze.py name:Ar1_enum_12_r2 classifier_dir_mod:nn
+cd /var/www/git/NLP/Word-Subject-Classification/2_classify/3_analyze_classification/; python3 analyze.py name:Ar1_enum_12_r2 classifier_dir_mod:nn
 '''
 
 

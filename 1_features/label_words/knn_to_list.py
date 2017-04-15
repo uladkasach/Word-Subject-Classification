@@ -9,7 +9,7 @@ from pathlib import Path
 ## Takes a directory of input words to add to a list
 ###########################
 '''
-cd /var/www/git/NLP/SubjectWordClassification/1_features/label_words
+cd /var/www/git/NLP/Word-Subject-Classification/1_features/label_words
 python3 knn_to_list.py plant_words.txt KNN_related
 '''
         
