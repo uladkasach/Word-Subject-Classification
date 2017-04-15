@@ -1,9 +1,7 @@
 <?php
 
 $databaseName = "NLP";
-$users = [
-        "NLP_main" => "ProcessTheNLP",
-    ];
+require("users.secure.php");
 
 require("class.php");
 $mysqliManager = new MySQLManager();
