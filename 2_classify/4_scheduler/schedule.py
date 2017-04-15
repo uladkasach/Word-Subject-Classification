@@ -148,7 +148,18 @@ if __name__ == '__main__':
         assert 'classifier_choice' in argument_set;
         assert isinstance(argument_set['classifier_choice'], list);
         assert 'source_mod' not in argument_set; # ensures same source used for all classification
-    
+        
+    ###########################################################
+    ## Remove Repeats_Per_Set from Enumerable Data
+    ###########################################################
+    repeats_per_set_by_classifier = dict();
+    for argument_set in dynamic.classification_arguments: 
+        classifier_choice = argument_set['classifier_choice'][0];
+        this_repeats_per_set = repeats_per_set;
+        if("repeats_per_set" in argument_set):
+            this_repeats_per_set = argument_set["repeats_per_set"][0];
+            del argument_set["repeats_per_set"];
+        repeats_per_set_by_classifier[classifier_choice] = int(this_repeats_per_set);    
     
     ########################################
     ## Genereate split data command chains if required
@@ -185,11 +196,12 @@ if __name__ == '__main__':
         argument_set["source_mod"] = dynamic.source_mod;
         ## Handle classifier_choice 
         classifier_choice = argument_set["classifier_choice"][0];
+        this_repeats_per_set = repeats_per_set_by_classifier[classifier_choice];
         this_classify_base = "cd /var/www/git/NLP/Word-Subject-Classification/2_classify/2_train_and_classify/"+classifier_choice+"/&& python3 classifier.py "; 
         this_analyze_base = "cd /var/www/git/NLP/Word-Subject-Classification/2_classify/3_analyze_classification/&& python3 analyze.py classifier_dir_mod:"+classifier_choice+" ";
         this_remove_base = "find /var/www/git/NLP/Word-Subject-Classification/2_classify/2_train_and_classify/"+classifier_choice+"/results/ -type f ";
         these_classification_enumerations, _ = recursive_list_enumerator(argument_set);
-        these_cAndA_command_chains = generate_classify_and_analyze_command_chains(these_classification_enumerations, this_classify_base, this_analyze_base, this_remove_base, repeats_per_set, set_title = argument_set_title );
+        these_cAndA_command_chains = generate_classify_and_analyze_command_chains(these_classification_enumerations, this_classify_base, this_analyze_base, this_remove_base, this_repeats_per_set, set_title = argument_set_title );
         cAndA_command_chains.extend(these_cAndA_command_chains);
     print(cAndA_command_chains[0:2]);
     print("Number of classification and analysis command chains: ", len(cAndA_command_chains));
