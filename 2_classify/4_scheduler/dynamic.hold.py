@@ -1,4 +1,64 @@
 
+
+##########################
+## Initialize
+###########################
+split_arguments = [];
+classification_arguments = [];
+
+
+###########################
+## Add split arguments - the splits will be generated and all will be used for each classification_argument set
+############################
+split_arguments.append({
+    "sampling" : ["random"],
+})
+split_arguments.append({
+    "sampling" : ["SMOTE"],
+    "SM" : [3, 8, 15],
+})
+split_arguments.append({
+    "sampling" : ["over"],
+    "SM" : [3, 8, 15],
+})
+split_arguments.append({
+    "sampling" : ["under"],
+    "SM" : [0.7, 0.9],
+})
+
+
+#############################
+## Add classification arguments
+############################# 
+
+## ['name', 'source_mod', 'njobs', 'rtrue', 'dev_mode', 'kernel', 'gamma', 'degree', 'verbose', 'classifier_choice'];
+classification_arguments.append({
+    "classifier_choice" : ["knn"],
+    "n_neighbors" : [5, 15, 30, 50],
+    "repeats_per_set" : [1],
+})
+classification_arguments.append({
+    "classifier_choice" : ["rf"],
+    "rtrue" : [1, 25, 50 ],
+    "repeats_per_set" : [3],
+})
+classification_arguments.append({
+    "classifier_choice" : ["nn"],
+    "epochs" : [600],
+    "learning_rate" : [0.1, 0.025],
+    "n_hidden_1" : [40, 20, 5, 2],
+    "n_hidden_2" : [40, 20, 5, 2],
+    "rtrue" : [1, 25, 50],
+    "repeats_per_set" : [2],
+})
+
+classification_arguments.append({
+    "classifier_choice" : ["svm"],
+    "kernel" : ["linear", "rbf", "poly", "sigmoid"],
+    "repeats_per_set" : [2],
+})
+
+###################################################################################################################
 '''
 classification_arguments = { ## NN
     "epochs" : [400],
@@ -150,3 +210,9 @@ classification_arguments.append({
     "n_hidden_2" : [40, 30, 20, 10, 5, 2],
     "rtrue" : [1, 5, 10, 20, 30, 40, 50],
 })
+
+
+
+
+
+################################################################

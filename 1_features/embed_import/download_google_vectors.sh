@@ -10,4 +10,4 @@ gunzip -k GoogleNews-vectors-negative300.bin.gz;
 #mv 0B7XkCwpI5KDYNlNUTTlSS21pQmM GoogleNews-vectors-negative300.bin;
 #sudo pip3 install gensim; # installs it incase it is not there, incease its already there nothing happens.
 python3 convert_v2.py;
-cp GoogleNews-vectors-negative300.csv /var/www/git/Plants/NLP/word2vec/classify/0_data_source/GoogleNews-vectors-negative300.csv;
+cp GoogleNews-vectors-negative300.csv /var/www/git/NLP/Word-Subject-Classification/2_classify/0_data_source/GoogleNews-vectors-negative300.csv;
