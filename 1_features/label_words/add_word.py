@@ -3,8 +3,8 @@ import sys
 
 from pathlib import Path
 '''
-cd /var/www/git/NLP/Word-Subject-Classification/1_features/label_words
-python3 add_word.py plant_words.txt 
+cd /var/www/git/NLP/Word-Subject-Classification/1_features/label_words; 
+python3 add_word.py new_words.txt 
 '''
 
 def add_word(target_word, target_file):
@@ -83,6 +83,8 @@ if __name__ == "__main__":
     loop_limit = 1;
     if len(sys.argv) > 2:
         target_word = sys.argv[2];
+        add_word(str(target_word), target_file);
+        exit();
     else:
         loop_limit = -1;
 

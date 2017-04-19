@@ -137,7 +137,7 @@ gradient_value = results["goodness"].tolist();
 plt.scatter(x_ROC, y_ROC, c=gradient_value)
 #plt.gray()
 plt.plot(x_ROC[0], y_ROC[0], 'ro');
-plt.ylabel('%TP')
-plt.xlabel('%FP')
+plt.ylabel('Precision')
+plt.xlabel('%TP - Recall')
 plt.savefig("summaries/"+SUMMARY_DELTA_MOD+"_PR.png")
 #plt.show()
