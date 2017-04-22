@@ -9,7 +9,7 @@
 ##############################
 
 '''
-cd /var/www/git/NLP/Word-Subject-Classification/2_classify/3_analyze_classification/; python3 fclass.py test TP
+cd /var/www/git/NLP/Word-Subject-Classification/2_classify/3_analyze_classification/; python3 fclass.py FN_R2 FN
 '''
 
 from os import listdir;

@@ -6,7 +6,7 @@ from tabulate import tabulate;
 import subprocess;
 
 '''
-cd /var/www/git/NLP/Word-Subject-Classification/2_classify/3_analyze_classification/fclass; python3 add_to_list.py
+cd /var/www/git/NLP/Word-Subject-Classification/2_classify/3_analyze_classification/fclass; python3 add_to_list.py remove
 '''
 
 start_index = 0;
@@ -16,7 +16,7 @@ if(len(sys.argv) > 1):
 if(len(sys.argv) > 2 and sys.argv[2] == "remove"):
     removal = True;
 
-this_file = "FP_R1.txt";
+this_file = "FN_R2.txt";
 with open(this_file, 'r') as fp:
     source_lines = fp.readlines();
     for index, line in enumerate(source_lines):
@@ -31,7 +31,7 @@ with open(this_file, 'r') as fp:
         the_path = "/var/www/git/NLP/Word-Subject-Classification/1_features/label_words/";
         if(removal == False):
             if(response in ["Y", "y"]):
-                command = "cd " + the_path + " && python3 add_word.py new_words.txt "+the_word;
+                command = "cd " + the_path + " && python3 add_word.py new_words_2.txt "+the_word;
                 #print(command);
                 result = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE).stdout.read();
                 print(result);
@@ -40,10 +40,20 @@ with open(this_file, 'r') as fp:
                 #print(command);
                 result = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE).stdout.read();
                 print(result);
+            if(response in ["G", "g"]):
+                command = "cd " + the_path + " && python3 add_word.py gardening_words.txt "+the_word;
+                #print(command);
+                result = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE).stdout.read();
+                print(result);
+            if(response in ["e"]):
+                command = "cd " + the_path + " && python3 add_word.py ecosystem_words.txt "+the_word;
+                #print(command);
+                result = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE).stdout.read();
+                print(result);
                 
         if(removal == True):
             if(response in ["R", "r"]):
-                command = "cd " + the_path + " && python3 add_word.py remove_words.txt "+the_word;
+                command = "cd " + the_path + " && python3 add_word.py remove_words_2.txt "+the_word;
                 #print(command);
                 result = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE).stdout.read();
                 print(result);
