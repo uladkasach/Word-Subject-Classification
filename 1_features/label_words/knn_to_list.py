@@ -10,7 +10,7 @@ from pathlib import Path
 ###########################
 '''
 cd /var/www/git/NLP/Word-Subject-Classification/1_features/label_words
-python3 knn_to_list.py plant_words.txt KNN_related
+python3 knn_to_list.py plant_2_words.txt KNN_related
 '''
         
 ######################    
@@ -70,3 +70,7 @@ print(seen_count[len(seen_count) - 50:]);
 for this_tuple in seen_count:
     this_word = this_tuple[0];
     add_word.add_word(this_word, target_file);
+    
+    
+print ("repeats were : ", repeats);
+print(seen_count[len(seen_count) - 50:]);

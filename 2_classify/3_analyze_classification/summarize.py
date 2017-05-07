@@ -6,7 +6,7 @@
 ##############################
 
 '''
-cd /var/www/git/NLP/Word-Subject-Classification/2_classify/3_analyze_classification/; python3 summarize.py test_summary
+cd /var/www/git/NLP/Word-Subject-Classification/2_classify/3_analyze_classification/; python3 summarize.py round_four
 '''
 
 from os import listdir
@@ -20,7 +20,7 @@ from tabulate import tabulate
 #######################################
 ## User Inputs
 #######################################
-RESULTS_ROOT = "results/test/";
+RESULTS_ROOT = "results/test_1_all/";
 SUMMARY_DELTA_MOD = sys.argv[1];
 FORCE_SHOW_ALL_REPEATS = False;
 
@@ -132,7 +132,7 @@ plt.scatter(x_ROC, y_ROC, c=gradient_value)
 plt.plot(x_ROC[0], y_ROC[0], 'ro');
 plt.ylabel('%TP')
 plt.xlabel('%FP')
-plt.savefig("summaries/"+SUMMARY_DELTA_MOD+"_ROC.png")
+#plt.savefig("summaries/"+SUMMARY_DELTA_MOD+"_ROC.png")
 #plt.show()
 
 ## Clear graph

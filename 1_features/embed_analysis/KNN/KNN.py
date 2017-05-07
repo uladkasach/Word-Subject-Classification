@@ -2,7 +2,10 @@ import numpy as np
 import sys
 
 '''
-cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 forest google && cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 confier google && cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 honeysuckles google && cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 eucalyptus_tree google && cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 shrub google && cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 grass google && cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 succulents google && cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 rootbound google
+cd /var/www/git/Plants/NLP/word2vec/features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 forest google 
+
+
+cd /var/www/git/NLP/Word-Subject-Classification/1_features/embed_analysis/KNN; python3 KNN.py ../GoogleNews-vectors-negative300.txt 250 einstein google 
 
 
 honeysuckles
@@ -171,6 +174,12 @@ print ("\nOrder by word ", i , ":");
 display_current_order();
 print(i);
 if(output_path_mod is not None): 
+    
+    # Ensure directory exists
+    directory = "results";
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    
     f = open("results/" + output_path_mod + "_" + target_word + ".txt", 'w+');
     for i in range(0,n):
         string = ordered_words[i].ljust(20) + " : " + str(ordered_distances[i]); 

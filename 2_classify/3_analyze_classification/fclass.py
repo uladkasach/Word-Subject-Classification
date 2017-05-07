@@ -2,14 +2,11 @@
 ## Script generates statistics on which words were misclassified the most - choose either FP or FN
 ######################
 ##############################
-## Pull label, %FP, and %TP from the files found in results
-##      - For each, create row in dataframe label, %fp, %tn
-## Plot the data on an ROC curve (save in summaries)
-## List all of the data in order desc (TP + (1-FP)) (save in summaries)
+## Grabs either FP or FN from analysis results for all results. Sorts in order of descending frequency. Outputs to list w/ file name.
 ##############################
 
 '''
-cd /var/www/git/NLP/Word-Subject-Classification/2_classify/3_analyze_classification/; python3 fclass.py FN_R2 FN
+cd /var/www/git/NLP/Word-Subject-Classification/2_classify/3_analyze_classification/; python3 fclass.py TOP_FN_R1 FN Ar1_enum_488_r0_result.csv
 '''
 
 from os import listdir;
@@ -24,25 +21,30 @@ from tabulate import tabulate
 #######################################
 ## User Inputs
 #######################################
-RESULTS_ROOT = "results/test/";
+RESULTS_ROOT = "results/test_1_all/";
 DELTA_MOD = sys.argv[1];
 TYPE = sys.argv[2].upper();
 if(TYPE not in ["TP", "FP"]): 
     print("Type selected not valid");
+specific_file = None;
+if(len(sys.argv) > 3):
+    specific_file = sys.argv[3];
 
-
-print('Detecting all files....');
-#######################################
-## Detect all results in results directory
-#######################################
-results_root = RESULTS_ROOT;
-result_files = [f for f in listdir(results_root) if isfile(join(results_root, f))]
-#result_files.remove('.gitignore');
-result_files_old = result_files;
-result_files = [s for s in result_files_old if s.endswith(".csv")]
-print("Found ", len(result_files), " files.");
-#print(len(result_files));
-#exit();
+if(specific_file is None):
+    print('Detecting all files....');
+    #######################################
+    ## Detect all results in results directory
+    #######################################
+    results_root = RESULTS_ROOT;
+    result_files = [f for f in listdir(results_root) if isfile(join(results_root, f))]
+    #result_files.remove('.gitignore');
+    result_files_old = result_files;
+    result_files = [s for s in result_files_old if s.endswith(".csv")]
+    print("Found ", len(result_files), " files.");
+    #print(len(result_files));
+    #exit();
+else:
+    result_files = [specific_file];
 
 
 print('Loading all relevant results...');

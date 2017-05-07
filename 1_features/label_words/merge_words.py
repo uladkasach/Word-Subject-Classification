@@ -9,8 +9,7 @@ from pathlib import Path
 ## Takes a directory of input words to add to a list
 ###########################
 '''
-cd /var/www/git/NLP/Word-Subject-Classification/1_features/label_words
-python3 merge_words.py google_plant_words.txt new_words.txt
+cd /var/www/git/NLP/Word-Subject-Classification/1_features/label_words; python3 merge_words.py google_plant_words.txt new_words_4.txt
 '''
         
 ######################    

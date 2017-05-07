@@ -1,0 +1,161 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Meta
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% Two columns APS format
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[%
+ reprint,
+ amsmath,amssymb,
+ aps,
+]{revtex4-1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Load Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[utf8]{inputenc}
+\usepackage{dcolumn} % Align table columns on decimal point
+\usepackage{graphicx} %% include figures
+\usepackage{natbib}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Title and Abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\title{Semi-Supervised Labeling and Classification of Words by Semantic Subject}
+
+
+\author{Uladzimir Kasacheuski}%
+
+\affiliation{%
+Department of Physics, School of Science \\
+Department of Computer Science, School of Science \\
+Indiana University-Purdue University Indianapolis.
+}%
+\date{April 2017}
+
+
+%\thanks{A footnote to the article title}%
+
+\begin{abstract}
+%Word-embeddings have enabled the field of natural language processing (NLP) to quantify the relationships among words. The technique has already improved the performance of standard NLP tasks such as named entity recognition (NER) and part-of-speech tagging (POS) - a product of the dense, rich features these word vectors embed. 
+
+The aggregation and organization of natural language text has garnered attention due to its utility in managing the vast amounts of data freely available today. Demonstrated in this work is an efficient method of utilizing the semantics embedded in word vectors to generate labeled data sets, words classified by subject, in a semi-supervised manner. For example, the words $quantum \textunderscore mechanics$, $Einstein$, and $relativity$ are all of the class $physics$. This labeled data is then employed in the training of supervised learning models such as neural networks and random forests, demonstrating its utility. The resultant data sets and models can then be applied as features for further classification, such as classifying text by subject, or as a guide for generating hierarchical representations of the human language. 
+
+%Natural language document aggregation, organization, and analysis is an application of natural language processing (NLP) which has garnered significant interest due to the vast volumes of data freely available with the advent of the Internet. This work utilizes the semantic data captured by the embeddings to classify words by subject. The objective is to classify on a word by word basis the class of each token which can be later used as features or to generate a hierarchical representation of the human language. E.g., the words $Einstein$, $quantum \textunderscore mechanics$, and $relativity$ are all of the class $physics$. 
+
+\end{abstract}
+\maketitle
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Body
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%
+%% Introduction
+%%%%%%%%%%%%%%%%%%%%%%
+\section{\label{sec:level1}INTRODUCTION}
+% What are you trying to solve and why is it significant?
+
+%What do $Albert\textunderscore Einstein$ and $Richard\textunderscore Feynman$ have in common? $relativity\textunderscore theory$, $Niels\textunderscore Bohr$, $mathematical\textunderscore proofs$, and the $God\textunderscore Particle$; they're of the class of $phyics$. This semantic information is captured by word embeddings naturally. 
+
+The massive volume of digital natural language data freely available today is often an overwhelming amount to efficiently parse for a human, especially under time constraints. To this end, automated information aggregation, organization, and analysis has been a topic of interest for many years \cite{Dumais_et_al,Morita_et_al}. 
+
+The process of organizing information requires the segmentation of documents by subject. There is no utility in information of unrelated classes to be aggregated and summarised together. In other words, if a person is researching the various types of aquatic life present on earth it would be of little use to present a thorough summary on electric vehicles. 
+
+This work presents an efficient semi-supervised method of creating a labeled data set of words, classified by their semantic subjects, for any subject. Further, the utility of the data sets is demonstrated by employing them in supervised classification models. The ability to classify words based on semantic structure enables the usage of word subject in further classification, much like named entity recognition and parts-of-speech tagging is utilized. Additionally, it demonstrates feasible path to a hierarchical classification of the human language. For example, a $honda \textunderscore civic$ is of a class $car$, which is of a class $vehicle$, and so on.
+
+
+%Knowledge based systems, multiclass sentiment analysis, structure of language, etc require understanding of subject class in relation to words. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%% Literature Review
+%%%%%%%%%%%%%%%%%%%%%%
+\section{\label{sec:level1}RELATED WORK}
+% Literature review; What are some early work done in this field.
+
+Categorizing words by semantic subject has had significant interest over time; goals have included document level text categorization \cite{Dumais_et_al},  generating hierarchical 'dictionaries' to define deeper relationships between words \cite{Morita_et_al},  \cite{Morita_et_al},
+
+
+% 1 - NLP
+% 3 - subject classification, NER and POS
+% 2 - word embeddings
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%% Data Set 
+%%%%%%%%%%%%%%%%%%%%%%
+\section{\label{sec:level1}Dataset}
+%% Internet sources + public domain books and later Google Word Vectors
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%% Algorithms  
+%%%%%%%%%%%%%%%%%%%%%%
+\section{\label{sec:level1}Algorithms}
+%% Algorithms implemented and used
+
+to combat the skewed data set over sampling, undersampling, and smote were used.
+
+Borderline smote was considered but not pursued as borderline words are actually conceptually similar
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%% Classification  
+%%%%%%%%%%%%%%%%%%%%%%
+\section{\label{sec:level1}Classification}
+%% Ensure results are reproducable
+%% Classifier design, parameters
+
+
+%% Split the data sets
+%% Define an array of classification parameters to utilize
+%%
+
+
+\section{\label{sec:level1}Results}
+
+ROC, PR,
+
+Ensure to demonstrate that all misclassifications are from related subjects
+While doing so show how this relates to heigherarhy
+
+\section{\label{sec:level1}Algorithms}
+%% Algorithms implemented and used
+
+
+\section{\label{sec:level1}Future Work}
+%% Algorithms implemented and used
+
+
+Training related 'sister-subject' classifiers and classifying together
+
+Evaluating classification performance on Reuters-21578 data set \cite{Dumais_et_al}, \cite{Lou_ZincirHeywood}
+
+Hierarchical classification
+
+Utilizing Google to make label itteration even less supervised
+
+
+\section{\label{sec:level1}Algorithms}
+%% Algorithms implemented and used
+
+
+\section{Conclusion}
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
