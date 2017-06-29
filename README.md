@@ -1,5 +1,5 @@
 ## Overview
-The content of this repository was created for an independent study completed durring spring semester of 2017. A complete writeup of this project can be found in the paper written about it: (Semi-Supervised Labeling and Classification of Words by Semantic Subject)[https://github.com/uladkasach/Word-Subject-Classification/blob/master/SemanticSubjectRecognition_FinalDraft.pdf]
+The content of this repository was created for an independent study completed durring spring semester of 2017. A complete writeup of this project can be found in the paper written about it: [Semi-Supervised Labeling and Classification of Words by Semantic Subject](https://github.com/uladkasach/Word-Subject-Classification/blob/master/SemanticSubjectRecognition_FinalDraft.pdf)
 
 
 Goal:
